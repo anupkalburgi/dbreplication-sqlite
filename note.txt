@@ -1,0 +1,33 @@
+What should be done if the co-ordinator never confirms about the commit. 
+How do i keep track of such a situation
+
+Maintain a list of locks. []
+
+Before changing anything append the key to this lock and after completing the task remove that. 
+
+
+
+While statrting up the server, go check the log file. Check for all pending operations and roll them back
+
+get_lock(item):
+	if there is a existing lock:
+		return false
+	else:
+		append item
+		return lock
+
+def wrte_to_sqlite(data, seq):
+	genrate_sql to insert
+	generte_sql_to_roll_back
+	with lock wite_to_log_file (seq and roll back statment)
+	method.save()
+
+def commit():
+	goback_back_to_log file search  for the entry of seq number and delete that entry from file
+
+
+def put():
+	if get_lock(key):
+		write to the log file log file along with the sequence number
+		write_key_to_sqlite()
+

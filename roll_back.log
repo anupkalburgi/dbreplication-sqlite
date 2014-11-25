@@ -1,0 +1,2 @@
+124-DELETE FROM keyvalue WHERE key=20
+124-DELETE FROM keyvalue WHERE key=20
