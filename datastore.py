@@ -1,6 +1,6 @@
 import sqlite3
 import fcntl
-
+import threading
 ROLL_BACK_LOG =  "roll_back.log"
 
 import logging
@@ -29,6 +29,8 @@ class DataStore(object):
 	def __init__(self, key=None, value=None):
 		self.key = key 
 		self.value = value
+		self.lock = threading.Lock()
+
 
 	def create_table(con,tablename=None):
 		cur = con.cursor()
@@ -48,12 +50,12 @@ class DataStore(object):
 
 	def execute(self,con,stmt):
 		try:
-			con.execute(stmt)
+			result = con.execute(stmt)
 			logger.info("Successfully executed {} to sqlite3".format(stmt))
 		except sqlite3.Error as e:
 			logger.error("Failed to  executed {} to sqlite3, Error:{}".format(stmt,e) )
 			raise
-		return True
+		return result
 
 	def get_sql_stmt(self,action):
 		'''
@@ -70,52 +72,76 @@ class DataStore(object):
 		return (ex_stmt,roll_back)
 
 
+	def commited(self,key):
+		with open(ROLL_BACK_LOG,'r') as f: # While reading i will not need a lock. 
+			lines = f.readlines()
+		for line in lines:
+			print line.split("-")[0], key
+			if line.split("-")[1] == str(key):
+				return False
+		else:
+			return True
+
+
 	def get(self, key ):
 		'''
 			Get operation should not work if key being still been operated on
 		'''
+		if not self.commited(key):
+			return 'Error: Not availabe for read'
+
 		sql =  "SELECT key, value FROM keyvalue WHERE key={}".format(key)
+		print sql
 		with self.get_connection() as con:
-			cur = con.cursor()
-			result = cur.execute(sql)
-		if result.rowcount > 1:
-			return result.fetchone()[1]
+			result = list(con.execute(sql))
+			# result = self.execute(con,sql)
+		#print dir(result.rowcount)
+		if len(result) > 1:
+			return result[0]
 		else:
-			return None
+			return "Error"
 
 	def update_roll_back_log(self, seq ):
 		with open(ROLL_BACK_LOG,'r') as f: # While reading i will not need a lock. 
 			lines = f.readlines()
+		print "----->",lines
 
 		# I think whole of this has to be Locked, as i dont want these two variables to be changed by the time they reach a stage where 
 		#they are being written to the file
 		# But also before coming here my wrapper is going to check if the key is being operated on.
+
+		self.lock.acquire()
 		line_to_delete = []
 		lines_to_append = []
+		try:
+			for line in lines:
+				if str(line.split("-")[0]) == str(seq):
+					line_to_delete = line
+				else:
+					lines_to_append.append(line)
 
-		for line in lines:
-			print line.split("-")[0], seq
-			if line.split("-")[0] == str(seq):
-				print "lot it"
-				line_to_delete = line
-			else:
-				lines_to_append.append(line)
-		print line_to_delete
-		if line_to_delete:
-			with open(ROLL_BACK_LOG, 'r+') as f: # Here the contents of the file change and hence the locks 
-				fcntl.flock(f, fcntl.LOCK_EX)
-				for write_line in lines_to_append:
-					f.write(write_line)
-				fcntl.flock(f, fcntl.LOCK_UN)
+			with open(ROLL_BACK_LOG, 'r+') as f:
+					fcntl.flock(f, fcntl.LOCK_EX)
+					f.truncate()
+					fcntl.flock(f, fcntl.LOCK_UN)
+			if lines_to_append:
+				with open(ROLL_BACK_LOG, 'r+') as f: # Here the contents of the file change and hence the locks 
+					fcntl.flock(f, fcntl.LOCK_EX)
+					for write_line in lines_to_append:
+						f.write(write_line)
+					fcntl.flock(f, fcntl.LOCK_UN)
+		except ValueError:
+			logger.error("Cound not comeplete the operation there was a exception" )
+		finally:
+			self.lock.release()
+			logger.info("Giving up Lock:Updating roll_back log")
 			return True
-		else:
-			return False
 
 
-	def append_roll_back_log(self,seq, stmt):
+	def append_roll_back_log(self,seq , key ,stmt):
 		with open(ROLL_BACK_LOG, 'a') as f:
 			fcntl.flock(f, fcntl.LOCK_EX)
-			f.write("{}-{}\n".format(seq,stmt))
+			f.write("{}-{}-{}\n".format(seq,key,stmt))
 			fcntl.flock(f, fcntl.LOCK_UN)
 		return True
 
@@ -134,16 +160,15 @@ class DataStore(object):
 	def put(self,seq):
 		sql = self.get_sql_stmt("PUT")
 		## With file handle we will have to wrte sql[1]  and sel to a file
-		if self.append_roll_back_log(seq,sql[1]):
+		if self.append_roll_back_log(seq,self.key,sql[1]):
 			with self.get_connection() as con:
 				if self.execute(con,sql[0]):
 					return True
 				else:
 					return False
 
-		# write the seq num and equivalanet roll back stmt
-		# commit to DB 
-		# return 
+
+	def roll_back(self,seq):
 
 
 
@@ -159,14 +184,22 @@ class DataStore(object):
 			return False
 
 
-d = DataStore(20,"Another attempt to check")
-d.put(124)
+# d = DataStore(220,"Another attempt to check get without parameter")
+# d.put(150)
 
-d = DataStore()
-print d.get(20)
+# print d.get(220)
 
-d =  DataStore()
-d.commit(124)
+# d =  DataStore()
+# d.commit(150)
+
+# d = DataStore(2900,"Another attempt to check get without parameter")
+# d.put(180)
+
+# ds =  DataStore()
+# print ds.get(220)
+
+# d = DataStore()
+# print d.get(200)
 
 # d = DataStore()
 # print d.get(12)

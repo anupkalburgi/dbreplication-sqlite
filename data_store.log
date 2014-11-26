@@ -1,16 +1,231 @@
-2014-11-25 11:22:27,401 ERROR Failed to  executed INSERT INTO keyvalue (key , value ) VALUES (1,Monty) to sqlite3, Error:no such column: Monty
-2014-11-25 11:40:14,061 INFO Successfully executed INSERT INTO keyvalue (key , value ) VALUES (1,"Monty") to sqlite3
-2014-11-25 11:40:16,416 INFO Successfully executed INSERT INTO keyvalue (key , value ) VALUES (1,"Monty") to sqlite3
-2014-11-25 11:40:17,449 INFO Successfully executed INSERT INTO keyvalue (key , value ) VALUES (1,"Monty") to sqlite3
-2014-11-25 11:40:59,006 INFO Successfully executed INSERT INTO keyvalue (key , value ) VALUES (3,"Monty") to sqlite3
-2014-11-25 11:41:35,036 INFO Successfully executed INSERT INTO keyvalue (key , value ) VALUES (3,"Monty wtddd") to sqlite3
-2014-11-25 11:49:48,280 INFO Successfully executed INSERT INTO keyvalue (key , value ) VALUES (10,"Library") to sqlite3
-2014-11-25 11:53:18,981 INFO Successfully executed INSERT INTO keyvalue (key , value ) VALUES (10,"Library") to sqlite3
-2014-11-25 15:51:53,800 INFO Successfully executed INSERT INTO keyvalue (key , value ) VALUES (11,"With the log file") to sqlite3
-2014-11-25 15:54:43,623 INFO Successfully executed INSERT INTO keyvalue (key , value ) VALUES (12,"With the log file the 2nd time so that i can search and update it") to sqlite3
-2014-11-25 16:12:39,160 INFO Successfully executed INSERT INTO keyvalue (key , value ) VALUES (13,"With the log file the 2nd time so that i can search and update it") to sqlite3
-2014-11-25 16:56:55,871 INFO Successfully executed DELETE FROM keyvalue WHERE key=13 to sqlite3
-2014-11-25 16:57:52,557 INFO Successfully executed DELETE FROM keyvalue WHERE key=12 to sqlite3
-2014-11-25 17:27:09,950 INFO Successfully executed INSERT INTO keyvalue (key , value ) VALUES (13,"With the log file the 2nd time so that i can search and update it") to sqlite3
-2014-11-25 17:29:14,857 INFO Successfully executed INSERT INTO keyvalue (key , value ) VALUES (20,"Another attempt to check") to sqlite3
-2014-11-25 17:35:19,702 INFO Successfully executed INSERT INTO keyvalue (key , value ) VALUES (20,"Another attempt to check") to sqlite3
+2014-11-25 22:04:40,048 INFO Successfully executed INSERT INTO keyvalue (key , value ) VALUES (220,"Another attempt to check get without parameter") to sqlite3
+2014-11-25 22:04:40,055 INFO Successfully executed INSERT INTO keyvalue (key , value ) VALUES (2900,"Another attempt to check get without parameter") to sqlite3
+2014-11-25 22:06:31,777 INFO Successfully executed INSERT INTO keyvalue (key , value ) VALUES (220,"Another attempt to check get without parameter") to sqlite3
+2014-11-25 22:06:31,783 INFO Successfully executed INSERT INTO keyvalue (key , value ) VALUES (2900,"Another attempt to check get without parameter") to sqlite3
+2014-11-25 22:06:50,492 INFO Successfully executed INSERT INTO keyvalue (key , value ) VALUES (220,"Another attempt to check get without parameter") to sqlite3
+2014-11-25 22:06:50,511 INFO Successfully executed INSERT INTO keyvalue (key , value ) VALUES (2900,"Another attempt to check get without parameter") to sqlite3
+2014-11-25 22:07:33,768 INFO Successfully executed INSERT INTO keyvalue (key , value ) VALUES (220,"Another attempt to check get without parameter") to sqlite3
+2014-11-25 22:07:33,771 INFO Successfully executed INSERT INTO keyvalue (key , value ) VALUES (2900,"Another attempt to check get without parameter") to sqlite3
+2014-11-25 22:07:46,722 INFO Successfully executed INSERT INTO keyvalue (key , value ) VALUES (220,"Another attempt to check get without parameter") to sqlite3
+2014-11-25 22:07:46,758 INFO Successfully executed INSERT INTO keyvalue (key , value ) VALUES (2900,"Another attempt to check get without parameter") to sqlite3
+2014-11-25 22:07:49,047 INFO Successfully executed INSERT INTO keyvalue (key , value ) VALUES (220,"Another attempt to check get without parameter") to sqlite3
+2014-11-25 22:07:49,050 INFO Successfully executed INSERT INTO keyvalue (key , value ) VALUES (2900,"Another attempt to check get without parameter") to sqlite3
+2014-11-25 22:07:55,246 INFO Successfully executed INSERT INTO keyvalue (key , value ) VALUES (220,"Another attempt to check get without parameter") to sqlite3
+2014-11-25 22:07:55,305 INFO Successfully executed INSERT INTO keyvalue (key , value ) VALUES (2900,"Another attempt to check get without parameter") to sqlite3
+2014-11-25 22:08:42,205 INFO Successfully executed INSERT INTO keyvalue (key , value ) VALUES (220,"Another attempt to check get without parameter") to sqlite3
+2014-11-25 22:08:42,541 INFO Successfully executed INSERT INTO keyvalue (key , value ) VALUES (2900,"Another attempt to check get without parameter") to sqlite3
+2014-11-25 22:08:51,672 INFO Successfully executed INSERT INTO keyvalue (key , value ) VALUES (220,"Another attempt to check get without parameter") to sqlite3
+2014-11-25 22:08:51,676 INFO Successfully executed INSERT INTO keyvalue (key , value ) VALUES (2900,"Another attempt to check get without parameter") to sqlite3
+2014-11-25 22:08:57,907 INFO Successfully executed INSERT INTO keyvalue (key , value ) VALUES (220,"Another attempt to check get without parameter") to sqlite3
+2014-11-25 22:08:57,914 INFO Successfully executed INSERT INTO keyvalue (key , value ) VALUES (2900,"Another attempt to check get without parameter") to sqlite3
+2014-11-25 22:11:02,091 INFO Successfully executed INSERT INTO keyvalue (key , value ) VALUES (220,"Another attempt to check get without parameter") to sqlite3
+2014-11-25 22:11:02,104 INFO Successfully executed INSERT INTO keyvalue (key , value ) VALUES (2900,"Another attempt to check get without parameter") to sqlite3
+2014-11-25 22:11:08,668 INFO Successfully executed INSERT INTO keyvalue (key , value ) VALUES (220,"Another attempt to check get without parameter") to sqlite3
+2014-11-25 22:11:08,675 INFO Successfully executed INSERT INTO keyvalue (key , value ) VALUES (2900,"Another attempt to check get without parameter") to sqlite3
+2014-11-25 22:11:47,823 INFO Successfully executed INSERT INTO keyvalue (key , value ) VALUES (220,"Another attempt to check get without parameter") to sqlite3
+2014-11-25 22:11:47,827 INFO Successfully executed INSERT INTO keyvalue (key , value ) VALUES (2900,"Another attempt to check get without parameter") to sqlite3
+2014-11-25 22:11:54,277 INFO Successfully executed INSERT INTO keyvalue (key , value ) VALUES (220,"Another attempt to check get without parameter") to sqlite3
+2014-11-25 22:11:54,280 INFO Successfully executed INSERT INTO keyvalue (key , value ) VALUES (2900,"Another attempt to check get without parameter") to sqlite3
+2014-11-25 22:11:54,282 INFO Successfully executed SELECT key, value FROM keyvalue WHERE key=220 to sqlite3
+2014-11-25 22:12:23,809 INFO Successfully executed INSERT INTO keyvalue (key , value ) VALUES (220,"Another attempt to check get without parameter") to sqlite3
+2014-11-25 22:12:23,812 INFO Successfully executed INSERT INTO keyvalue (key , value ) VALUES (2900,"Another attempt to check get without parameter") to sqlite3
+2014-11-25 22:12:31,220 INFO Successfully executed INSERT INTO keyvalue (key , value ) VALUES (220,"Another attempt to check get without parameter") to sqlite3
+2014-11-25 22:12:31,228 INFO Successfully executed INSERT INTO keyvalue (key , value ) VALUES (2900,"Another attempt to check get without parameter") to sqlite3
+2014-11-25 22:12:31,232 INFO Successfully executed SELECT key, value FROM keyvalue WHERE key=220 to sqlite3
+2014-11-25 22:12:44,295 INFO Successfully executed INSERT INTO keyvalue (key , value ) VALUES (220,"Another attempt to check get without parameter") to sqlite3
+2014-11-25 22:12:44,298 INFO Successfully executed INSERT INTO keyvalue (key , value ) VALUES (2900,"Another attempt to check get without parameter") to sqlite3
+2014-11-25 22:12:50,361 INFO Successfully executed INSERT INTO keyvalue (key , value ) VALUES (220,"Another attempt to check get without parameter") to sqlite3
+2014-11-25 22:12:50,379 INFO Successfully executed INSERT INTO keyvalue (key , value ) VALUES (2900,"Another attempt to check get without parameter") to sqlite3
+2014-11-25 22:12:50,382 INFO Successfully executed SELECT key, value FROM keyvalue WHERE key=220 to sqlite3
+2014-11-25 22:13:40,591 INFO Successfully executed INSERT INTO keyvalue (key , value ) VALUES (220,"Another attempt to check get without parameter") to sqlite3
+2014-11-25 22:13:40,598 INFO Successfully executed INSERT INTO keyvalue (key , value ) VALUES (2900,"Another attempt to check get without parameter") to sqlite3
+2014-11-25 22:13:48,500 INFO Successfully executed INSERT INTO keyvalue (key , value ) VALUES (220,"Another attempt to check get without parameter") to sqlite3
+2014-11-25 22:13:48,518 INFO Successfully executed INSERT INTO keyvalue (key , value ) VALUES (2900,"Another attempt to check get without parameter") to sqlite3
+2014-11-25 22:13:48,521 INFO Successfully executed SELECT key, value FROM keyvalue WHERE key=220 to sqlite3
+2014-11-25 22:14:45,589 INFO Successfully executed INSERT INTO keyvalue (key , value ) VALUES (220,"Another attempt to check get without parameter") to sqlite3
+2014-11-25 22:14:45,593 INFO Successfully executed INSERT INTO keyvalue (key , value ) VALUES (2900,"Another attempt to check get without parameter") to sqlite3
+2014-11-25 22:14:52,317 INFO Successfully executed INSERT INTO keyvalue (key , value ) VALUES (220,"Another attempt to check get without parameter") to sqlite3
+2014-11-25 22:14:52,322 INFO Successfully executed INSERT INTO keyvalue (key , value ) VALUES (2900,"Another attempt to check get without parameter") to sqlite3
+2014-11-25 22:14:52,323 INFO Successfully executed SELECT key, value FROM keyvalue WHERE key=220 to sqlite3
+2014-11-25 22:15:15,574 INFO Successfully executed INSERT INTO keyvalue (key , value ) VALUES (220,"Another attempt to check get without parameter") to sqlite3
+2014-11-25 22:15:15,585 INFO Successfully executed INSERT INTO keyvalue (key , value ) VALUES (2900,"Another attempt to check get without parameter") to sqlite3
+2014-11-25 22:15:15,600 INFO Successfully executed SELECT key, value FROM keyvalue WHERE key=220 to sqlite3
+2014-11-25 22:15:40,398 INFO Successfully executed INSERT INTO keyvalue (key , value ) VALUES (220,"Another attempt to check get without parameter") to sqlite3
+2014-11-25 22:15:40,405 INFO Successfully executed INSERT INTO keyvalue (key , value ) VALUES (2900,"Another attempt to check get without parameter") to sqlite3
+2014-11-25 22:15:48,201 INFO Successfully executed INSERT INTO keyvalue (key , value ) VALUES (220,"Another attempt to check get without parameter") to sqlite3
+2014-11-25 22:15:48,203 INFO Successfully executed INSERT INTO keyvalue (key , value ) VALUES (2900,"Another attempt to check get without parameter") to sqlite3
+2014-11-25 22:15:48,205 INFO Successfully executed SELECT key, value FROM keyvalue WHERE key=220 to sqlite3
+2014-11-25 22:17:34,803 INFO Successfully executed INSERT INTO keyvalue (key , value ) VALUES (220,"Another attempt to check get without parameter") to sqlite3
+2014-11-25 22:17:34,807 INFO Successfully executed INSERT INTO keyvalue (key , value ) VALUES (2900,"Another attempt to check get without parameter") to sqlite3
+2014-11-25 22:17:42,840 INFO Successfully executed INSERT INTO keyvalue (key , value ) VALUES (220,"Another attempt to check get without parameter") to sqlite3
+2014-11-25 22:17:42,847 INFO Successfully executed INSERT INTO keyvalue (key , value ) VALUES (2900,"Another attempt to check get without parameter") to sqlite3
+2014-11-25 22:17:58,091 INFO Successfully executed INSERT INTO keyvalue (key , value ) VALUES (220,"Another attempt to check get without parameter") to sqlite3
+2014-11-25 22:17:58,098 INFO Successfully executed INSERT INTO keyvalue (key , value ) VALUES (2900,"Another attempt to check get without parameter") to sqlite3
+2014-11-25 22:18:10,743 INFO Successfully executed INSERT INTO keyvalue (key , value ) VALUES (220,"Another attempt to check get without parameter") to sqlite3
+2014-11-25 22:18:10,750 INFO Successfully executed INSERT INTO keyvalue (key , value ) VALUES (2900,"Another attempt to check get without parameter") to sqlite3
+2014-11-25 22:26:37,578 INFO Successfully executed INSERT INTO keyvalue (key , value ) VALUES (220,"Another attempt to check get without parameter") to sqlite3
+2014-11-25 22:26:37,582 INFO Successfully executed INSERT INTO keyvalue (key , value ) VALUES (2900,"Another attempt to check get without parameter") to sqlite3
+2014-11-25 22:26:43,499 INFO Successfully executed INSERT INTO keyvalue (key , value ) VALUES (220,"Another attempt to check get without parameter") to sqlite3
+2014-11-25 22:26:43,535 INFO Successfully executed INSERT INTO keyvalue (key , value ) VALUES (2900,"Another attempt to check get without parameter") to sqlite3
+2014-11-25 22:27:14,322 INFO Successfully executed INSERT INTO keyvalue (key , value ) VALUES (220,"Another attempt to check get without parameter") to sqlite3
+2014-11-25 22:27:14,328 INFO Successfully executed INSERT INTO keyvalue (key , value ) VALUES (2900,"Another attempt to check get without parameter") to sqlite3
+2014-11-25 22:27:22,723 INFO Successfully executed INSERT INTO keyvalue (key , value ) VALUES (220,"Another attempt to check get without parameter") to sqlite3
+2014-11-25 22:27:22,726 INFO Successfully executed INSERT INTO keyvalue (key , value ) VALUES (2900,"Another attempt to check get without parameter") to sqlite3
+2014-11-25 22:27:47,071 INFO Successfully executed INSERT INTO keyvalue (key , value ) VALUES (220,"Another attempt to check get without parameter") to sqlite3
+2014-11-25 22:27:47,076 INFO Successfully executed INSERT INTO keyvalue (key , value ) VALUES (2900,"Another attempt to check get without parameter") to sqlite3
+2014-11-25 22:27:54,608 INFO Successfully executed INSERT INTO keyvalue (key , value ) VALUES (220,"Another attempt to check get without parameter") to sqlite3
+2014-11-25 22:27:54,611 INFO Successfully executed INSERT INTO keyvalue (key , value ) VALUES (2900,"Another attempt to check get without parameter") to sqlite3
+2014-11-25 22:27:57,309 INFO Successfully executed INSERT INTO keyvalue (key , value ) VALUES (220,"Another attempt to check get without parameter") to sqlite3
+2014-11-25 22:27:57,312 INFO Successfully executed INSERT INTO keyvalue (key , value ) VALUES (2900,"Another attempt to check get without parameter") to sqlite3
+2014-11-25 22:36:54,369 INFO Successfully executed INSERT INTO keyvalue (key , value ) VALUES (220,"Another attempt to check get without parameter") to sqlite3
+2014-11-25 22:36:54,387 INFO Successfully executed INSERT INTO keyvalue (key , value ) VALUES (2900,"Another attempt to check get without parameter") to sqlite3
+2014-11-25 22:39:06,648 INFO Successfully executed INSERT INTO keyvalue (key , value ) VALUES (220,"Another attempt to check get without parameter") to sqlite3
+2014-11-25 22:39:06,654 INFO Got Log:Updating roll_back log
+2014-11-25 22:39:06,654 INFO Giving up Lock:Updating roll_back log
+2014-11-25 22:39:06,655 INFO Successfully executed INSERT INTO keyvalue (key , value ) VALUES (2900,"Another attempt to check get without parameter") to sqlite3
+2014-11-25 22:39:25,916 INFO Successfully executed INSERT INTO keyvalue (key , value ) VALUES (220,"Another attempt to check get without parameter") to sqlite3
+2014-11-25 22:39:25,922 INFO Got Log:Updating roll_back log
+2014-11-25 22:39:25,923 INFO Giving up Lock:Updating roll_back log
+2014-11-25 22:39:25,924 INFO Successfully executed INSERT INTO keyvalue (key , value ) VALUES (2900,"Another attempt to check get without parameter") to sqlite3
+2014-11-25 22:55:34,257 INFO Successfully executed INSERT INTO keyvalue (key , value ) VALUES (220,"Another attempt to check get without parameter") to sqlite3
+2014-11-25 22:55:34,263 INFO Got Log:Updating roll_back log
+2014-11-25 22:55:34,264 INFO Giving up Lock:Updating roll_back log
+2014-11-25 22:55:34,264 INFO Successfully executed INSERT INTO keyvalue (key , value ) VALUES (2900,"Another attempt to check get without parameter") to sqlite3
+2014-11-25 22:55:52,069 INFO Successfully executed INSERT INTO keyvalue (key , value ) VALUES (220,"Another attempt to check get without parameter") to sqlite3
+2014-11-25 22:55:52,096 INFO Got Log:Updating roll_back log
+2014-11-25 22:55:52,097 INFO Giving up Lock:Updating roll_back log
+2014-11-25 22:55:52,098 INFO Successfully executed INSERT INTO keyvalue (key , value ) VALUES (2900,"Another attempt to check get without parameter") to sqlite3
+2014-11-25 22:56:02,612 INFO Successfully executed INSERT INTO keyvalue (key , value ) VALUES (220,"Another attempt to check get without parameter") to sqlite3
+2014-11-25 22:56:02,614 INFO Got Log:Updating roll_back log
+2014-11-25 22:56:02,614 INFO Giving up Lock:Updating roll_back log
+2014-11-25 22:56:02,615 INFO Successfully executed INSERT INTO keyvalue (key , value ) VALUES (2900,"Another attempt to check get without parameter") to sqlite3
+2014-11-25 22:56:13,537 INFO Successfully executed INSERT INTO keyvalue (key , value ) VALUES (220,"Another attempt to check get without parameter") to sqlite3
+2014-11-25 22:56:13,543 INFO Got Log:Updating roll_back log
+2014-11-25 22:56:13,543 INFO Giving up Lock:Updating roll_back log
+2014-11-25 22:56:13,544 INFO Successfully executed INSERT INTO keyvalue (key , value ) VALUES (2900,"Another attempt to check get without parameter") to sqlite3
+2014-11-25 23:01:09,117 INFO Successfully executed INSERT INTO keyvalue (key , value ) VALUES (220,"Another attempt to check get without parameter") to sqlite3
+2014-11-25 23:01:09,122 INFO Got Log:Updating roll_back log
+2014-11-25 23:01:09,122 INFO Giving up Lock:Updating roll_back log
+2014-11-25 23:01:09,123 INFO Successfully executed INSERT INTO keyvalue (key , value ) VALUES (2900,"Another attempt to check get without parameter") to sqlite3
+2014-11-25 23:01:15,599 INFO Successfully executed INSERT INTO keyvalue (key , value ) VALUES (220,"Another attempt to check get without parameter") to sqlite3
+2014-11-25 23:01:15,601 INFO Got Log:Updating roll_back log
+2014-11-25 23:01:15,601 INFO Giving up Lock:Updating roll_back log
+2014-11-25 23:01:15,602 INFO Successfully executed INSERT INTO keyvalue (key , value ) VALUES (2900,"Another attempt to check get without parameter") to sqlite3
+2014-11-25 23:02:47,479 INFO Successfully executed INSERT INTO keyvalue (key , value ) VALUES (220,"Another attempt to check get without parameter") to sqlite3
+2014-11-25 23:02:47,522 INFO Got Log:Updating roll_back log
+2014-11-25 23:02:47,522 INFO Giving up Lock:Updating roll_back log
+2014-11-25 23:02:47,524 INFO Successfully executed INSERT INTO keyvalue (key , value ) VALUES (2900,"Another attempt to check get without parameter") to sqlite3
+2014-11-25 23:02:48,728 INFO Successfully executed INSERT INTO keyvalue (key , value ) VALUES (220,"Another attempt to check get without parameter") to sqlite3
+2014-11-25 23:02:48,729 INFO Got Log:Updating roll_back log
+2014-11-25 23:02:48,730 INFO Giving up Lock:Updating roll_back log
+2014-11-25 23:02:48,731 INFO Successfully executed INSERT INTO keyvalue (key , value ) VALUES (2900,"Another attempt to check get without parameter") to sqlite3
+2014-11-25 23:03:09,185 INFO Successfully executed INSERT INTO keyvalue (key , value ) VALUES (220,"Another attempt to check get without parameter") to sqlite3
+2014-11-25 23:03:09,191 INFO Got Log:Updating roll_back log
+2014-11-25 23:03:09,192 INFO Giving up Lock:Updating roll_back log
+2014-11-25 23:03:09,192 INFO Successfully executed INSERT INTO keyvalue (key , value ) VALUES (2900,"Another attempt to check get without parameter") to sqlite3
+2014-11-25 23:04:36,338 INFO Successfully executed INSERT INTO keyvalue (key , value ) VALUES (220,"Another attempt to check get without parameter") to sqlite3
+2014-11-25 23:04:36,341 INFO Got Log:Updating roll_back log
+2014-11-25 23:04:36,341 INFO Giving up Lock:Updating roll_back log
+2014-11-25 23:04:36,342 INFO Successfully executed INSERT INTO keyvalue (key , value ) VALUES (2900,"Another attempt to check get without parameter") to sqlite3
+2014-11-25 23:14:23,223 INFO Successfully executed INSERT INTO keyvalue (key , value ) VALUES (220,"Another attempt to check get without parameter") to sqlite3
+2014-11-25 23:14:23,227 INFO Got Log:Updating roll_back log
+2014-11-25 23:14:23,228 INFO Giving up Lock:Updating roll_back log
+2014-11-25 23:14:23,229 INFO Successfully executed INSERT INTO keyvalue (key , value ) VALUES (2900,"Another attempt to check get without parameter") to sqlite3
+2014-11-25 23:14:49,610 INFO Successfully executed INSERT INTO keyvalue (key , value ) VALUES (220,"Another attempt to check get without parameter") to sqlite3
+2014-11-25 23:14:49,616 INFO Got Log:Updating roll_back log
+2014-11-25 23:14:49,616 INFO Giving up Lock:Updating roll_back log
+2014-11-25 23:14:49,617 INFO Successfully executed INSERT INTO keyvalue (key , value ) VALUES (2900,"Another attempt to check get without parameter") to sqlite3
+2014-11-25 23:15:30,775 INFO Successfully executed INSERT INTO keyvalue (key , value ) VALUES (220,"Another attempt to check get without parameter") to sqlite3
+2014-11-25 23:15:30,808 INFO Got Log:Updating roll_back log
+2014-11-25 23:15:30,808 INFO Giving up Lock:Updating roll_back log
+2014-11-25 23:15:30,809 INFO Successfully executed INSERT INTO keyvalue (key , value ) VALUES (2900,"Another attempt to check get without parameter") to sqlite3
+2014-11-25 23:15:33,739 INFO Successfully executed INSERT INTO keyvalue (key , value ) VALUES (220,"Another attempt to check get without parameter") to sqlite3
+2014-11-25 23:15:33,741 INFO Got Log:Updating roll_back log
+2014-11-25 23:15:33,741 INFO Giving up Lock:Updating roll_back log
+2014-11-25 23:15:33,742 INFO Successfully executed INSERT INTO keyvalue (key , value ) VALUES (2900,"Another attempt to check get without parameter") to sqlite3
+2014-11-25 23:16:58,737 INFO Successfully executed INSERT INTO keyvalue (key , value ) VALUES (220,"Another attempt to check get without parameter") to sqlite3
+2014-11-25 23:16:58,739 INFO Got Log:Updating roll_back log
+2014-11-25 23:16:58,739 INFO Giving up Lock:Updating roll_back log
+2014-11-25 23:17:01,890 INFO Successfully executed INSERT INTO keyvalue (key , value ) VALUES (220,"Another attempt to check get without parameter") to sqlite3
+2014-11-25 23:17:01,937 INFO Got Log:Updating roll_back log
+2014-11-25 23:17:01,937 INFO Giving up Lock:Updating roll_back log
+2014-11-25 23:17:05,178 INFO Successfully executed INSERT INTO keyvalue (key , value ) VALUES (220,"Another attempt to check get without parameter") to sqlite3
+2014-11-25 23:17:05,180 INFO Got Log:Updating roll_back log
+2014-11-25 23:17:05,180 INFO Giving up Lock:Updating roll_back log
+2014-11-25 23:22:50,814 INFO Successfully executed INSERT INTO keyvalue (key , value ) VALUES (220,"Another attempt to check get without parameter") to sqlite3
+2014-11-25 23:22:50,825 INFO Got Log:Updating roll_back log
+2014-11-25 23:22:50,825 INFO Giving up Lock:Updating roll_back log
+2014-11-25 23:24:00,971 INFO Successfully executed INSERT INTO keyvalue (key , value ) VALUES (220,"Another attempt to check get without parameter") to sqlite3
+2014-11-25 23:24:00,982 INFO Got Log:Updating roll_back log
+2014-11-25 23:24:00,983 INFO Giving up Lock:Updating roll_back log
+2014-11-25 23:24:02,536 INFO Successfully executed INSERT INTO keyvalue (key , value ) VALUES (220,"Another attempt to check get without parameter") to sqlite3
+2014-11-25 23:24:02,541 INFO Got Log:Updating roll_back log
+2014-11-25 23:24:02,541 INFO Giving up Lock:Updating roll_back log
+2014-11-25 23:24:04,160 INFO Successfully executed INSERT INTO keyvalue (key , value ) VALUES (220,"Another attempt to check get without parameter") to sqlite3
+2014-11-25 23:24:04,162 INFO Got Log:Updating roll_back log
+2014-11-25 23:24:04,162 INFO Giving up Lock:Updating roll_back log
+2014-11-25 23:24:05,805 INFO Successfully executed INSERT INTO keyvalue (key , value ) VALUES (220,"Another attempt to check get without parameter") to sqlite3
+2014-11-25 23:24:05,807 INFO Got Log:Updating roll_back log
+2014-11-25 23:24:05,807 INFO Giving up Lock:Updating roll_back log
+2014-11-25 23:25:16,144 INFO Successfully executed INSERT INTO keyvalue (key , value ) VALUES (220,"Another attempt to check get without parameter") to sqlite3
+2014-11-25 23:25:16,150 INFO Got Log:Updating roll_back log
+2014-11-25 23:25:16,150 INFO Giving up Lock:Updating roll_back log
+2014-11-25 23:33:26,557 INFO Successfully executed INSERT INTO keyvalue (key , value ) VALUES (220,"Another attempt to check get without parameter") to sqlite3
+2014-11-25 23:33:26,582 INFO Got Log:Updating roll_back log
+2014-11-25 23:33:26,582 INFO Giving up Lock:Updating roll_back log
+2014-11-25 23:33:34,409 INFO Successfully executed INSERT INTO keyvalue (key , value ) VALUES (220,"Another attempt to check get without parameter") to sqlite3
+2014-11-25 23:33:34,422 INFO Got Log:Updating roll_back log
+2014-11-25 23:33:34,422 INFO Giving up Lock:Updating roll_back log
+2014-11-25 23:33:42,185 INFO Successfully executed INSERT INTO keyvalue (key , value ) VALUES (220,"Another attempt to check get without parameter") to sqlite3
+2014-11-25 23:33:42,187 INFO Got Log:Updating roll_back log
+2014-11-25 23:33:42,188 INFO Giving up Lock:Updating roll_back log
+2014-11-25 23:33:42,188 INFO Successfully executed INSERT INTO keyvalue (key , value ) VALUES (2900,"Another attempt to check get without parameter") to sqlite3
+2014-11-25 23:33:45,333 INFO Successfully executed INSERT INTO keyvalue (key , value ) VALUES (220,"Another attempt to check get without parameter") to sqlite3
+2014-11-25 23:33:45,376 INFO Got Log:Updating roll_back log
+2014-11-25 23:33:45,377 INFO Giving up Lock:Updating roll_back log
+2014-11-25 23:33:45,378 INFO Successfully executed INSERT INTO keyvalue (key , value ) VALUES (2900,"Another attempt to check get without parameter") to sqlite3
+2014-11-25 23:34:19,288 INFO Successfully executed INSERT INTO keyvalue (key , value ) VALUES (220,"Another attempt to check get without parameter") to sqlite3
+2014-11-25 23:34:19,290 INFO Got Log:Updating roll_back log
+2014-11-25 23:34:19,290 INFO Giving up Lock:Updating roll_back log
+2014-11-25 23:34:19,291 INFO Successfully executed INSERT INTO keyvalue (key , value ) VALUES (2900,"Another attempt to check get without parameter") to sqlite3
+2014-11-25 23:34:27,970 INFO Successfully executed INSERT INTO keyvalue (key , value ) VALUES (220,"Another attempt to check get without parameter") to sqlite3
+2014-11-25 23:34:27,976 INFO Got Log:Updating roll_back log
+2014-11-25 23:34:27,976 INFO Giving up Lock:Updating roll_back log
+2014-11-25 23:34:27,977 INFO Successfully executed INSERT INTO keyvalue (key , value ) VALUES (2900,"Another attempt to check get without parameter") to sqlite3
+2014-11-25 23:34:34,856 INFO Successfully executed INSERT INTO keyvalue (key , value ) VALUES (220,"Another attempt to check get without parameter") to sqlite3
+2014-11-25 23:34:34,858 INFO Got Log:Updating roll_back log
+2014-11-25 23:34:34,858 INFO Giving up Lock:Updating roll_back log
+2014-11-25 23:34:34,859 INFO Successfully executed INSERT INTO keyvalue (key , value ) VALUES (2900,"Another attempt to check get without parameter") to sqlite3
+2014-11-25 23:34:41,460 INFO Successfully executed INSERT INTO keyvalue (key , value ) VALUES (220,"Another attempt to check get without parameter") to sqlite3
+2014-11-25 23:34:41,466 INFO Got Log:Updating roll_back log
+2014-11-25 23:34:41,466 INFO Giving up Lock:Updating roll_back log
+2014-11-25 23:34:41,467 INFO Successfully executed INSERT INTO keyvalue (key , value ) VALUES (2900,"Another attempt to check get without parameter") to sqlite3
+2014-11-25 23:35:16,900 INFO Successfully executed INSERT INTO keyvalue (key , value ) VALUES (220,"Another attempt to check get without parameter") to sqlite3
+2014-11-25 23:35:16,905 INFO Got Log:Updating roll_back log
+2014-11-25 23:35:16,906 INFO Giving up Lock:Updating roll_back log
+2014-11-25 23:35:16,907 INFO Successfully executed INSERT INTO keyvalue (key , value ) VALUES (2900,"Another attempt to check get without parameter") to sqlite3
+2014-11-25 23:35:22,010 INFO Successfully executed INSERT INTO keyvalue (key , value ) VALUES (220,"Another attempt to check get without parameter") to sqlite3
+2014-11-25 23:35:22,012 INFO Got Log:Updating roll_back log
+2014-11-25 23:35:22,013 INFO Giving up Lock:Updating roll_back log
+2014-11-25 23:35:22,014 INFO Successfully executed INSERT INTO keyvalue (key , value ) VALUES (2900,"Another attempt to check get without parameter") to sqlite3
+2014-11-25 23:48:14,037 INFO Successfully executed INSERT INTO keyvalue (key , value ) VALUES (220,"Another attempt to check get without parameter") to sqlite3
+2014-11-25 23:48:14,042 INFO Got Log:Updating roll_back log
+2014-11-25 23:48:14,042 INFO Giving up Lock:Updating roll_back log
+2014-11-25 23:48:14,043 INFO Successfully executed INSERT INTO keyvalue (key , value ) VALUES (2900,"Another attempt to check get without parameter") to sqlite3
+2014-11-25 23:48:16,960 INFO Successfully executed INSERT INTO keyvalue (key , value ) VALUES (220,"Another attempt to check get without parameter") to sqlite3
+2014-11-25 23:48:16,989 INFO Got Log:Updating roll_back log
+2014-11-25 23:48:16,990 INFO Giving up Lock:Updating roll_back log
+2014-11-25 23:48:16,991 INFO Successfully executed INSERT INTO keyvalue (key , value ) VALUES (2900,"Another attempt to check get without parameter") to sqlite3
+2014-11-25 23:48:23,892 INFO Successfully executed INSERT INTO keyvalue (key , value ) VALUES (220,"Another attempt to check get without parameter") to sqlite3
+2014-11-25 23:48:23,894 INFO Got Log:Updating roll_back log
+2014-11-25 23:48:23,895 INFO Giving up Lock:Updating roll_back log
+2014-11-25 23:48:23,895 INFO Successfully executed INSERT INTO keyvalue (key , value ) VALUES (2900,"Another attempt to check get without parameter") to sqlite3
+2014-11-25 23:48:31,813 INFO Successfully executed INSERT INTO keyvalue (key , value ) VALUES (220,"Another attempt to check get without parameter") to sqlite3
+2014-11-25 23:48:31,820 INFO Got Log:Updating roll_back log
+2014-11-25 23:48:31,820 INFO Giving up Lock:Updating roll_back log
+2014-11-25 23:48:31,821 INFO Successfully executed INSERT INTO keyvalue (key , value ) VALUES (2900,"Another attempt to check get without parameter") to sqlite3
+2014-11-25 23:49:56,246 INFO Got Log:Updating roll_back log
+2014-11-25 23:49:56,246 INFO Giving up Lock:Updating roll_back log
+2014-11-25 23:51:20,036 INFO Successfully executed INSERT INTO keyvalue (key , value ) VALUES (40,"Hello Wold") to sqlite3
+2014-11-25 23:51:33,091 INFO Got Log:Updating roll_back log
+2014-11-25 23:51:33,091 INFO Giving up Lock:Updating roll_back log
