@@ -31,3 +31,17 @@ def put():
 		write to the log file log file along with the sequence number
 		write_key_to_sqlite()
 
+
+
+Commands possible in a replica:
+	
+	general format
+	---------------
+	seq;cmd;key;value -- There always have to be 4 no matter what 
+
+	Example Usage:
+		get --    ;get;<key>
+		put -- seq;get;key;value
+		del -- seq;del;key;
+	 commit -- seq;com;;
+	 abort  -- seq;abrt;;

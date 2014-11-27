@@ -1,11 +1,16 @@
+from datastore import DataStore
+
 STATS = {
     'PUT': {'success': 0, 'error': 0},
     'GET': {'success': 0, 'error': 0},
-    'DELETE': {'success': 0, 'error': 0},
+    'DEL': {'success': 0, 'error': 0},
     'STATS': {'success': 0, 'error': 0},
+    'COM': {'success': 0, 'error': 0},
+    'ABORT': {'success': 0, 'error': 0}
 }
 
 DATA = {}
+POROCESSING = []
 
 def update_stats(command, success):
     """Update the STATS dict with info about if executing
@@ -16,20 +21,29 @@ def update_stats(command, success):
         STATS[command]['error'] += 1
 
 
-def handle_put(key, value):
+def handle_put(seq,key, value):
     """Return a tuple containing True and the message
     to send back to the client."""
-    DATA[key] = value
-    return (True, 'Key [{}] set to [{}]'.format(key, value))
+
+    if key not in POROCESSING:
+        POROCESSING.append(key)
+        ds = DataStore(key,value)
+        if ds.put(seq):
+            POROCESSING.remove(key)
+            return (True, 'Key [{}] set to [{}]'.format(key, value))
+    return (False, 'Error:1')
 
 
 def handle_get(key):
     """Return a tuple containing True if the key exists and the message
     to send back to the client."""
-    if key not in DATA:
-        return(False, 'ERROR: Key [{}] not found'.format(key))
-    else:
-        return(True, DATA[key])
+    if key not in POROCESSING:
+        ds = DataStore()
+        (key,value) = ds.get(key)
+        if value:
+            return(True, value)
+    return(False, 'ERROR: Key [{}] not found'.format(key))
+        
 
 
 # def handle_putlist(key, value):
@@ -85,19 +99,34 @@ def handle_get(key):
 #         return (True, 'Key [{}] had value [{}] appended'.format(key, value))
 
 
-def handle_delete(key):
+def handle_delete(seq,key):
     """Return a tuple containing True if the key could be deleted and
     the message to send back to the client.
 
     Monty -- use datastore.get and then before doing doing datastore.delete
     """
-    if key not in DATA:
-        return (
-            False,
-            'ERROR: Key [{}] not found and could not be deleted'.format(key)
-            )
+    ds = DataStore()
+    if ds.get(key):
+        POROCESSING.append(key)
+        if ds.delete(seq,key):   
+            POROCESSING.remove(key)
+            return (True,'Done')
+        else:
+            POROCESSING.remove(key)
+    return (False,'ERROR: Key [{}] not found and could not be deleted'.format(key))
+
+def handle_commit(seq):
+    ds = DataStore()
+    if ds.commit(seq):
+        return (True,'Done')
     else:
-        del DATA[key]
+        (False,'Error:')
+
+def handle_abort(seq):
+    ds = DataStore()
+    if ds.roll_back(seq):
+        return (True,'Done')
+    return (False,"Error")
 
 
 def handle_stats():

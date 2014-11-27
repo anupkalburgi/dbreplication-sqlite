@@ -1,5 +1,5 @@
 import socket
-from handlers  import handle_put, handle_get, handle_stats, handle_delete , update_stats
+from handlers  import handle_put, handle_get, handle_stats, handle_delete , update_stats , handle_commit, handle_abort
 HOST = 'localhost'
 PORT = 50505
 SOCKET = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -8,7 +8,9 @@ COMMAND_HANDLERS = {
     'PUT': handle_put,
     'GET': handle_get,
     'STATS': handle_stats,
-    'DELETE': handle_delete
+    'DEL': handle_delete,
+    'COM' : handle_commit,
+    'ABORT' : handle_abort
     }
 
 
@@ -16,26 +18,22 @@ COMMAND_HANDLERS = {
 def parse_message(data):
     """Return a tuple containing the command, the key, and (optionally) the
     value cast to the appropriate type."""
-    command, key, value, value_type = data.strip().split(';')
-    if value_type:
-        if value_type == 'LIST':
-            value = value.split(',')
-        elif value_type == 'INT':
-            value = int(value)
-        else:
-            value = str(value)
-    else:
-        value = None
-    return command, key, value
+    print (data.strip().split(';') )
+    seq, command, key, value = data.strip().split(';')
+    return seq, command.upper(), key, value
 
 def porcess_request(data):
-    command, key, value = parse_message(data)
+    seq, command, key, value = parse_message(data)
     if command == 'STATS':
         response = handle_stats()
-    elif command in ('GET','DELETE'):
+    elif command == 'GET':
         response = COMMAND_HANDLERS[command](key)
-    elif command in ('PUT'):
-        response = COMMAND_HANDLERS[command](key, value)
+    elif command == 'DEL':
+        response = COMMAND_HANDLERS[command](seq, key)
+    elif command == 'PUT':
+        response = COMMAND_HANDLERS[command](seq,key, value)
+    elif command in ('COM','ABORT'):
+        response = COMMAND_HANDLERS[command](seq)
     else:
         response = (False, 'Unknown command type [{}]'.format(command))
     update_stats(command, response[0])

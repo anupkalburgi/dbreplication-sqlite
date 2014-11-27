@@ -54,7 +54,7 @@ class DataStore(object):
 			logger.info("Successfully executed {} to sqlite3".format(stmt))
 		except sqlite3.Error as e:
 			logger.error("Failed to  executed {} to sqlite3, Error:{}".format(stmt,e) )
-			raise
+			return False
 		return result
 
 	def get_sql_stmt(self,action):
@@ -76,7 +76,6 @@ class DataStore(object):
 		with open(ROLL_BACK_LOG,'r') as f: # While reading i will not need a lock. 
 			lines = f.readlines()
 		for line in lines:
-			print line.split("-")[0], key
 			if line.split("-")[1] == str(key):
 				return False
 		else:
@@ -94,23 +93,21 @@ class DataStore(object):
 		print sql
 		with self.get_connection() as con:
 			result = list(con.execute(sql))
-			# result = self.execute(con,sql)
-		#print dir(result.rowcount)
-		if len(result) > 1:
-			return result[0]
+		if len(result) > 0:
+			return (result[0][0],result[0][1])
 		else:
-			return "Error"
+			return None
+
 
 	def update_roll_back_log(self, seq ):
+		self.lock.acquire()
 		with open(ROLL_BACK_LOG,'r') as f: # While reading i will not need a lock. 
 			lines = f.readlines()
-		print "----->",lines
 
 		# I think whole of this has to be Locked, as i dont want these two variables to be changed by the time they reach a stage where 
 		#they are being written to the file
 		# But also before coming here my wrapper is going to check if the key is being operated on.
 
-		self.lock.acquire()
 		line_to_delete = []
 		lines_to_append = []
 		try:
@@ -132,10 +129,14 @@ class DataStore(object):
 					fcntl.flock(f, fcntl.LOCK_UN)
 		except ValueError:
 			logger.error("Cound not comeplete the operation there was a exception" )
+			raise
 		finally:
 			self.lock.release()
 			logger.info("Giving up Lock:Updating roll_back log")
-			return True
+			if line_to_delete:
+				return line_to_delete
+			else:
+				return True
 
 
 	def append_roll_back_log(self,seq , key ,stmt):
@@ -145,17 +146,21 @@ class DataStore(object):
 			fcntl.flock(f, fcntl.LOCK_UN)
 		return True
 
-	def delete(self,seq): 
+	def delete(self,seq, key ): 
 		'''
 		May be i shoud also check if have the key before deleting
 		'''
-		sql = self.get_sql_stmt("DEL")
-		if self.append_roll_back_log(seq,sql[1]):
-			with self.get_connection() as con:
-				if self.execute(con,sql[0]):
-					return True
-				else:
-					return False
+		key_value  = self.get(key)
+		if key_value:
+			(self.key, self.value) = key_value
+			sql = self.get_sql_stmt("DEL")
+			if self.append_roll_back_log(seq,self.key,sql[1]):
+				with self.get_connection() as con:
+					if self.execute(con,sql[0]):
+						return True
+					else:
+						self.update_roll_back_log(seq)
+		return False
 
 	def put(self,seq):
 		sql = self.get_sql_stmt("PUT")
@@ -165,10 +170,20 @@ class DataStore(object):
 				if self.execute(con,sql[0]):
 					return True
 				else:
+					self.update_roll_back_log(seq)
 					return False
+		return False
 
 
 	def roll_back(self,seq):
+		stmt = self.update_roll_back_log(seq)
+		if type(stmt) != bool:
+			with self.get_connection() as con:
+				stmt = stmt.strip('\n').split("-")[2]
+				if self.execute(con, stmt):
+					return True
+				else:
+					return False
 
 
 
@@ -177,8 +192,7 @@ class DataStore(object):
 			delete the seq entry fro the file.(To accomadate nested queries move the stuff to another log)
 		'''
 		if self.update_roll_back_log(seq):
-			print "Dot it "
-			return 'Done'
+			return True
 		else:
 			print "wtf"
 			return False
@@ -196,7 +210,7 @@ class DataStore(object):
 # d.put(180)
 
 # ds =  DataStore()
-# print ds.get(220)
+# print ds.get(220)[1]
 
 # d = DataStore()
 # print d.get(200)
