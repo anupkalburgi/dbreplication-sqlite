@@ -3,6 +3,11 @@ import threading
 import SocketServer
 from replica_setup import porcess_request
 
+def create_logs():
+    open("roll_back.log", 'a').close()
+    open("data_store.log", 'a').close()
+    
+
 class ThreadedTCPRequestHandler(SocketServer.BaseRequestHandler):
 
     def handle(self):
@@ -27,6 +32,7 @@ if __name__ == "__main__":
     # more thread for each request
     server_thread = threading.Thread(target=server.serve_forever)
     # Exit the server thread when the main thread terminates
+    create_logs()
     print "Server loop running in thread:", server_thread.name , ip , port
     server.serve_forever()
     server_thread.daemon = True
