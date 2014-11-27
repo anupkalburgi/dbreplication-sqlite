@@ -1,6 +1,6 @@
 import socket
 REPLICA = ['192.168.1.21','129.174.55.248']
-
+port = 50504
 
 import logging
 logger = logging.getLogger('cord_log')
@@ -10,7 +10,7 @@ hdlr.setFormatter(formatter)
 logger.addHandler(hdlr) 
 logger.setLevel(logging.INFO)
 
-def client(ip, port, message, response, seq):
+def client(ip, message, response, seq=None):
     try:
         sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         sock.connect((ip, port))

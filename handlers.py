@@ -41,7 +41,7 @@ def handle_get(key):
         ds = DataStore()
         (key,value) = ds.get(key)
         if value:
-            return(True, value)
+            return(True, (key,value))
     return(False, 'ERROR: Key [{}] not found'.format(key))
         
 
