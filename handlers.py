@@ -39,9 +39,9 @@ def handle_get(key):
     to send back to the client."""
     if key not in POROCESSING:
         ds = DataStore()
-        (key,value) = ds.get(key)
-        if value:
-            return(True, (key,value))
+        data = ds.get(key)
+        if data:
+            return(True, (data[0],data[1]))
     return(False, 'ERROR: Key [{}] not found'.format(key))
         
 

@@ -81,7 +81,8 @@ def replicas_get(key):
 
 
 
-replicas_get(101)
+#replicas_put(101,'new_test_data')
+replicas_get(102)
 
 
     # for response in responses:
