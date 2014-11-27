@@ -14,8 +14,8 @@ logger.setLevel(logging.INFO)
 
 def checkTableExists(dbcon, tablename):
 	dbcur = dbcon.cursor()
-	table = dbcur.execute('select name from sqlite_master where type="table"')
-	if 'keyvalue' in table.fetchone()[0]:
+	table = list(dbcur.execute('select name from sqlite_master where type="table"'))
+	if table:
 		dbcur.close()
 		return True
 	else:

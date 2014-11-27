@@ -5,29 +5,36 @@ from threading import Thread
 
 def client(ip, port, message, response):
     sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    print message
     sock.connect((ip, port))
     try:
         sock.sendall(message)
-        response = sock.recv(1024)
+        response.append (sock.recv(1024))
         # return re
         # print "Received: {}".format(response)
     finally:
         sock.close()
+    return True
 
+
+REPLICA = ['129.174.126.30','129.174.55.248']
 
 threads = []
-responses = [{} for range(1,3)]
-for i in range(1,20):
+responses = [[] for i in range (len(REPLICA) ) ]
+for i in range(len(REPLICA)):
         # Create each thread, passing it its chunk of numbers to factor
         # and output dict.
+        print REPLICA[i], i
         t = Thread(target=client,
-                args=('127.0.0.1', 50504, "{};put;{};Testdata{}".format(i,i,i) ))
+                args=(REPLICA[i], 50504, "{};put;{};Testdata{}".format(i+1,i+1,i+1), responses[i] )  )
         threads.append(t)
         t.start()
 
 results = []
 for t in threads:
         t.join()
+
+print responses
 
 # for i in range(1,20):
 #     thread = Thread(target = client, args = ('127.0.0.1', 50504, "{};abort;;".format(i) ))

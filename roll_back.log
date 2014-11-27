@@ -1,13 +1,11 @@
+0-0-DELETE FROM keyvalue WHERE key=0
 2-2-DELETE FROM keyvalue WHERE key=2
-5-5-DELETE FROM keyvalue WHERE key=5
 4-4-DELETE FROM keyvalue WHERE key=4
 6-6-DELETE FROM keyvalue WHERE key=6
-8-8-DELETE FROM keyvalue WHERE key=8
 7-7-DELETE FROM keyvalue WHERE key=7
-9-9-DELETE FROM keyvalue WHERE key=9
-17-17-DELETE FROM keyvalue WHERE key=17
-19-19-DELETE FROM keyvalue WHERE key=19
+8-8-DELETE FROM keyvalue WHERE key=8
 10-10-DELETE FROM keyvalue WHERE key=10
-15-15-DELETE FROM keyvalue WHERE key=15
 13-13-DELETE FROM keyvalue WHERE key=13
+15-15-DELETE FROM keyvalue WHERE key=15
 18-18-DELETE FROM keyvalue WHERE key=18
+19-19-DELETE FROM keyvalue WHERE key=19
