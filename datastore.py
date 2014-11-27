@@ -32,7 +32,7 @@ class DataStore(object):
 		self.lock = threading.Lock()
 
 
-	def create_table(con,tablename=None):
+	def create_table(self,con,tablename=None):
 		cur = con.cursor()
 		try:
 			cur.execute("CREATE TABLE keyvalue (key int , value varchar(30))")
