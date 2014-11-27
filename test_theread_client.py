@@ -9,8 +9,6 @@ def get_seq():
         number += 1
 SEQ = get_seq() 
 
-
-
 def client(ip, port, message, response, seq):
     sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     print message
@@ -24,6 +22,15 @@ def client(ip, port, message, response, seq):
                     'status':status, 
                     'message':message}
         response.append( from_srv )
+    except socket.error, v:
+        errorcode=v[0]
+        if errorcode==errno.ECONNREFUSED:
+            logger.error("connection_refused:{}".format(ip))
+            from_srv = {'ip': ip ,
+                    'seq':seq ,
+                    'status':'False', 
+                    'message':'Cound not connect to server'}
+            response.append( from_srv )
     finally:
         sock.close()
     return True
@@ -51,7 +58,7 @@ if all(message[0]['status'] == 'True'  for message in responses):
         t = Thread(target=client,
                     args=(REPLICA[i], 
                         50504, "{};com;;".format(responses[i][0]['seq']), 
-                        responses[i] , 
+                        commit_reponses[i] , 
                         seq
                     ))
         commit_threads.append(t)
@@ -63,6 +70,10 @@ for t in commit_threads:
 
 
 print commit_reponses
+
+TODO:
+Make this concurrent
+Test for replication
 
 # for i in range(1,20):
 #     thread = Thread(target = client, args = ('127.0.0.1', 50504, "{};abort;;".format(i) ))
