@@ -18,7 +18,7 @@ class ThreadedTCPServer(SocketServer.ThreadingMixIn, SocketServer.TCPServer):
 
 if __name__ == "__main__":
     # Port 0 means to select an arbitrary unused port
-    HOST, PORT = "localhost", 50504
+    HOST, PORT = socket.gethostbyname(socket.gethostname()) , 50504
 
     server = ThreadedTCPServer((HOST, PORT), ThreadedTCPRequestHandler)
     ip, port = server.server_address
