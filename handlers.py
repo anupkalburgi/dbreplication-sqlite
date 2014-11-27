@@ -125,7 +125,7 @@ def handle_commit(seq):
 def handle_abort(seq):
     ds = DataStore()
     if ds.roll_back(seq):
-        return (True,'Done')
+        return (True,'SEQ Aborted')
     return (False,"Error")
 
 
