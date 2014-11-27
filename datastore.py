@@ -21,7 +21,6 @@ def checkTableExists(dbcon, tablename):
 	else:
 		dbcur.close()
 		return False
-
 	dbcur.close()
 	return False
 

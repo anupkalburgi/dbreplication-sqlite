@@ -1,13 +1,15 @@
 import socket
 from threading import Thread
+REPLICA = ['192.168.1.21','129.174.55.248']
 
 def get_seq():
     number = 5
     while True:
         yield number
         number += 1
-
 SEQ = get_seq() 
+
+
 
 def client(ip, port, message, response, seq):
     sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -27,14 +29,8 @@ def client(ip, port, message, response, seq):
     return True
 
 
-REPLICA = ['192.168.1.21','129.174.55.248']
-
 threads = []
 responses = [[] for i in range (len(REPLICA) ) ]
-
-
-
-
 seq = SEQ.next()
 for i in range(len(REPLICA)):
         print REPLICA[i], i
@@ -42,12 +38,9 @@ for i in range(len(REPLICA)):
                 args=(REPLICA[i], 50504, "{};put;{};Testdata{}".format(seq,i,i), responses[i] , seq)  )
         threads.append(t)
         t.start()
-
 results = []
 for t in threads:
         t.join()
-
-
 
 # print responses
 
@@ -66,6 +59,8 @@ if all(message[0]['status'] == 'True'  for message in responses):
 
 for t in commit_threads:
         t.join()
+
+
 
 print commit_reponses
 

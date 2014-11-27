@@ -118,9 +118,9 @@ def handle_delete(seq,key):
 def handle_commit(seq):
     ds = DataStore()
     if ds.commit(seq):
-        return (True,'Done')
+        return (True,'Commit')
     else:
-        (False,'Error:')
+        return (False,'Error:')
 
 def handle_abort(seq):
     ds = DataStore()
