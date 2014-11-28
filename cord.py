@@ -82,7 +82,15 @@ def replicas_get(key):
 
 
 def all_same(items, master):
-    return all(set(x[0]['message']) == set(master) for x in items)
+    for item in items:
+        if len(item[0]['message'])== len(master) ==0:
+            return True
+        if len(item[0]['message'])  == len(master) :
+            if not set(item[0]['message'].split('-')) == set(master):
+                return False
+    else:
+        True
+    return all(set( list(x[0]['message'].split('-') )) == set(master) for x in items ) 
 
 
 def all_synced():
@@ -99,9 +107,10 @@ def all_synced():
 
 
     master_keys = MasterStore().get_master_keys()
-    print set(master_keys)
-    for i,res in enumerate(responses):
-        print list(res[0]['message'])
+    for resp in responses:
+        print resp 
+    
+    print all_same(responses, master_keys)
 
     if all_same(responses, master_keys):
         return True

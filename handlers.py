@@ -138,5 +138,5 @@ def handle_keys():
     ds = DataStore()
     keys = ds.mykeys()
     keys = [x[0] for x in keys]
-    keys_n = '-'.join(keys)
+    keys_n = '-'.join(str(x) for x in keys) 
     return (True,keys_n)
