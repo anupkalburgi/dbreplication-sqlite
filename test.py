@@ -15,7 +15,7 @@ def sync():
 	sync_ed = all_synced()
 	if type(sync_ed) is not bool:
 		print "Not Sycn", sync_ed
-		for resp in sync_ed:
+		for resp in sync_ed[0]:
 			if len(resp[0]['message']) != len(keys):
 				print "Will have to sync up", resp
 	else:
@@ -23,19 +23,19 @@ def sync():
 
 
 
-# def put(key,value):
-# 	if key in PROCESSING:
-# 		print "Cannot do this operation"
-# 		return "Cannot do this operation"
-# 	else:
-# 		PROCESSING.append(key)
-# 		resp = replicas_put(key,value)
-# 		if resp:
-# 			seq = SEQ.next()
-# 			ms = MasterStore(key,value)
-# 			ms.put(seq)
-# 			ms.commit(seq)
-# 		PROCESSING.remove(key)
+def put(key,value):
+	if key in PROCESSING:
+		print "Cannot do this operation"
+		return "Cannot do this operation"
+	else:
+		PROCESSING.append(key)
+		resp = replicas_put(key,value)
+		if resp:
+			seq = SEQ.next()
+			ms = MasterStore(key,value)
+			ms.put(seq)
+			ms.commit(seq)
+		PROCESSING.remove(key)
 
 # for i in range(len(DATA)):
 #         t = Thread(target=put,args=( DATA[i][0],DATA[i][1] )) 

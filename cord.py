@@ -99,17 +99,14 @@ def all_synced():
 
 
     master_keys = MasterStore().get_master_keys()
-    print "---"
-    print type(master_keys)
-
-    print "++++++++"
+    print set(master_keys)
     for i,res in enumerate(responses):
-        print res[0]['message'].split(',')
+        print list(res[0]['message'])
 
     if all_same(responses, master_keys):
         return True
     else:
-        return (False,responses)
+        return (False,(responses,master_keys) )
 
 
 

@@ -137,6 +137,6 @@ def handle_stats():
 def handle_keys():
     ds = DataStore()
     keys = ds.mykeys()
-    keys_n = [x[0] for x in keys]
-    print keys_n
+    keys = [x[0] for x in keys]
+    keys_n =  ‘-‘.join(list1)
     return (True,keys_n)
