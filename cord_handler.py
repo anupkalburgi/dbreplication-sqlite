@@ -1,12 +1,7 @@
 from cord import replicas_put,replicas_get,replicas_del, SEQ , all_synced
 from masterstore import MasterStore
 from threading import Thread
-from cord_connect import client 
-
-DATA = [(913,"Testing replication"),(112,"Concurrent"),(214,"Not fault tollerent"),(219,"and my attept")]
-
-threads = []
-responses = [[] for i in range (len(DATA) ) ]
+from cord_connect import client ,REPLICA
 
 PROCESSING = []
 
@@ -69,9 +64,19 @@ def sync():
 						if client(server[0]['server'] , "{};com;;".format(seq) , response):
 							pass
 		print "We are all synced Now"
-
+	print "We are all fine"
 	return True
 
+
+def check_status():
+	
+	for replica in REPLICA:
+		response = []
+		client(replica , ";STATS;;", response)
+		if response[0]['status'] == 'False' :
+			return False, replica
+	else:
+		return True
 
 
 def put(key,value):
@@ -89,10 +94,10 @@ def put(key,value):
 		else:
 			ms.roll_back(seq)
 		PROCESSING.remove(key)
-	return True
+	return True,key
 
 def get(key):
-	print replicas_get(key)
+	return True, replicas_get(key)
 
 def cdel(key):
 	if key in PROCESSING:
@@ -101,16 +106,19 @@ def cdel(key):
 	else:
 		PROCESSING.append(key)
 		seq = SEQ.next()
-		ms = MasterStore(key,value)
-		ms.delete(seq)
+		ms = MasterStore(key)
+		ms.delete(seq,key)
 		resp = replicas_del(key)
 		if resp:
 			ms.commit(seq)
 		PROCESSING.remove(key)
-	return True
+	return True,key
 
 
+# DATA = [(913,"Testing replication"),(112,"Concurrent"),(214,"Not fault tollerent"),(219,"and my attept")]
 
+# threads = []
+# responses = [[] for i in range (len(DATA) ) ]
 
 # for i in range(len(DATA)):
 #         t = Thread(target=put,args=( DATA[i][0],DATA[i][1] )) 
@@ -124,7 +132,7 @@ def cdel(key):
 # for t in threads:
 #         t.join()
 
-#sync()
-get(214)
+#print sync()
+# print cdel(214)
 
 

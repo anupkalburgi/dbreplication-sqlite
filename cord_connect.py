@@ -30,6 +30,7 @@ def client(ip, message, response, seq=None):
                     'status':'False', 
                     'message':'Cound not connect to server'}
         response.append( from_srv )
+        return True
     finally:
         sock.close()
     return True
