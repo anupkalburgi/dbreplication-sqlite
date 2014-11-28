@@ -86,11 +86,10 @@ def all_same(items, master):
         if len(item[0]['message'])== len(master) ==0:
             return True
         if len(item[0]['message'])  == len(master) :
-            if not set(item[0]['message'].split('-')) == set(master):
+            if not set(item[0]['message'].split('-')) == set(master.split('-') ):
                 return False
     else:
-        True
-    return all(set( list(x[0]['message'].split('-') )) == set(master) for x in items ) 
+        return True
 
 
 def all_synced():
@@ -107,11 +106,6 @@ def all_synced():
 
 
     master_keys = MasterStore().get_master_keys()
-    for resp in responses:
-        print resp 
-    
-    print all_same(responses, master_keys)
-
     if all_same(responses, master_keys):
         return True
     else:
