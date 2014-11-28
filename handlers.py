@@ -137,5 +137,6 @@ def handle_stats():
 def handle_keys():
     ds = DataStore()
     keys = ds.mykeys()
-    print keys
-    return (True,keys)
+    tmp_keys = []
+    keys = [x[0] for x in keys]
+    return (True,tmp_keys)

@@ -2,6 +2,8 @@ from cord_connect import client , REPLICA, logger
 from threading import Thread
 import random
 
+from masterstore import MasterStore
+
 
 def get_seq():
     number = 5
@@ -79,11 +81,11 @@ def replicas_get(key):
     return response
 
 
-def all_same(items):
-    return all(x == items[0] for x in items)
+def all_same(items, master):
+    return all(set(x[0]['message']) == set(master) for x in items)
 
 
-def synced():
+def all_synced():
     threads = []
     responses = [[] for i in range (len(REPLICA) ) ]
 
@@ -95,11 +97,19 @@ def synced():
     for t in threads:
             t.join()
 
-    print responses
-    if all_same(responses):
+
+    master_keys = MasterStore().get_master_keys()
+    print "---"
+    print type(master_keys)
+
+    print "++++++++"
+    for i,res in enumerate(responses):
+        print res[0]['message'].split(',')
+
+    if all_same(responses, master_keys):
         return True
     else:
-        return False
+        return (False,responses)
 
 
 

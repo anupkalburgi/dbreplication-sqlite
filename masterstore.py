@@ -1,6 +1,9 @@
 import sqlite3
 import fcntl
 import threading
+
+
+
 ROLL_BACK_LOG =  "master_rollback.log"
 
 import logging
@@ -195,6 +198,14 @@ class MasterStore(object):
 		else:
 			print "wtf"
 			return False
+
+	def get_master_keys(self):
+		sql = "SELECT key from keyvalue"
+		with self.get_connection() as con:
+			results = list(self.execute(con,sql))
+
+		results  = [ x[0] for x in results ]
+		return results
 
 
 # d = DataStore(220,"Another attempt to check get without parameter")
