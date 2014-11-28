@@ -15,9 +15,19 @@ def sync():
 	sync_ed = all_synced()
 	if type(sync_ed) is not bool:
 		print "Not Sycn", sync_ed
-		for resp in sync_ed[0]:
-			if len(resp[0]['message']) != len(keys):
-				print "Will have to sync up", resp
+
+		for replica in replics:
+			for key in master:
+				if key not in replica:
+					put
+
+			for key in replica:
+				if key not in master:
+					del key from relica
+
+			for resp in sync_ed[0]:
+				if len(resp[0]['message']) != len(keys):
+					print "Will have to sync up", resp
 	else:
 		print "Synced"
 
@@ -34,6 +44,20 @@ def put(key,value):
 			seq = SEQ.next()
 			ms = MasterStore(key,value)
 			ms.put(seq)
+			ms.commit(seq)
+		PROCESSING.remove(key)
+
+def cdel(key):
+	if key in PROCESSING:
+		print "Cannot do this operation"
+		return "Cannot do this operation"
+	else:
+		PROCESSING.append(key)
+		resp = replicas_del(key)
+		if resp:
+			seq = SEQ.next()
+			ms = MasterStore(key,value)
+			ms.delete(seq)
 			ms.commit(seq)
 		PROCESSING.remove(key)
 
