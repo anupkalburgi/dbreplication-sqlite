@@ -1,7 +1,8 @@
-from cord import replicas_put,replicas_get,replicas_del
+from cord import replicas_put,replicas_get,replicas_del, SEQ
+from masterstore import MasterStore
 from threading import Thread
 
-DATA = [(30000,"Testing replication"),(35000,"Concurrent"),(45000,"Not fault tollerent"),(28000,"and my attept")]
+DATA = [(130,"Testing replication"),(135,"Concurrent"),(145,"Not fault tollerent"),(128,"and my attept")]
 
 threads = []
 responses = [[] for i in range (len(DATA) ) ]
@@ -11,10 +12,16 @@ PROCESSING = []
 
 def put(key,value):
 	if key in PROCESSING:
+		print "Cannot do this operation"
 		return "Cannot do this operation"
 	else:
 		PROCESSING.append(key)
 		resp = replicas_put(key,value)
+		if resp:
+			seq = SEQ.next()
+			ms = MasterStore(key,value)
+			ms.put(seq)
+			ms.commit(seq)
 		PROCESSING.remove(key)
 
 

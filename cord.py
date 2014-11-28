@@ -138,7 +138,7 @@ def replicas_del(key):
             logger.error("Aswesome all of them failed")
         return False
 
-replicas_put(101,'new_test_data')
+#replicas_put(101,'new_test_data')
 # replicas_del(101)
 
 
