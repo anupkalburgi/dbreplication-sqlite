@@ -39,12 +39,14 @@ def put(key,value):
 		return "Cannot do this operation"
 	else:
 		PROCESSING.append(key)
+		seq = SEQ.next()
+		ms = MasterStore(key,value)
+		ms.put(seq)
 		resp = replicas_put(key,value)
 		if resp:
-			seq = SEQ.next()
-			ms = MasterStore(key,value)
-			ms.put(seq)
 			ms.commit(seq)
+		else:
+			ms.roll_back(seq)
 		PROCESSING.remove(key)
 
 def cdel(key):
@@ -53,26 +55,26 @@ def cdel(key):
 		return "Cannot do this operation"
 	else:
 		PROCESSING.append(key)
+		seq = SEQ.next()
+		ms = MasterStore(key,value)
+		ms.delete(seq)
 		resp = replicas_del(key)
 		if resp:
-			seq = SEQ.next()
-			ms = MasterStore(key,value)
-			ms.delete(seq)
 			ms.commit(seq)
 		PROCESSING.remove(key)
 
-# for i in range(len(DATA)):
-#         t = Thread(target=put,args=( DATA[i][0],DATA[i][1] )) 
-#         t2 = Thread(target=put,args=( DATA[i][0],DATA[i][1] )) 
-#         threads.append(t)
-#         threads.append(t2)
-#         t.start()
-#         t2.start()
+for i in range(len(DATA)):
+        t = Thread(target=put,args=( DATA[i][0],DATA[i][1] )) 
+        t2 = Thread(target=put,args=( DATA[i][0],DATA[i][1] )) 
+        threads.append(t)
+        threads.append(t2)
+        t.start()
+        t2.start()
 
-# results = []
-# for t in threads:
-#         t.join()
+results = []
+for t in threads:
+        t.join()
 
-sync()
+# sync()
 
 
