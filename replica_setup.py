@@ -1,5 +1,5 @@
 import socket
-from handlers  import handle_put, handle_get, handle_stats, handle_delete , update_stats , handle_commit, handle_abort
+from handlers  import handle_put, handle_get, handle_stats, handle_delete , update_stats , handle_commit, handle_abort handle_keys
 HOST = 'localhost'
 PORT = 50505
 SOCKET = socket.socket(socket.AF_INET, socket.SOCK_STREAM)

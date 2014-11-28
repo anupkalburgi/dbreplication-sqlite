@@ -79,23 +79,23 @@ def replicas_get(key):
     return response
 
 
-def all_same(self,items):
+def all_same(items):
     return all(x == items[0] for x in items)
 
 
-def checksync(self):
+def synced():
     threads = []
     responses = [[] for i in range (len(REPLICA) ) ]
 
     for i in range(len(REPLICA)):
-            t = Thread(target=client,
-                    args=(REPLICA[i], ";keys;;".format(seq,key), responses[i] , seq)  )
+            t = Thread(target=client,args=(REPLICA[i], ";keys;;" , responses[i]))
             threads.append(t)
             t.start()
 
     for t in threads:
             t.join()
 
+    print responses
     if all_same(responses):
         return True
     else:
