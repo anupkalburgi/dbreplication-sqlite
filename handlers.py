@@ -6,7 +6,7 @@ STATS = {
     'DEL': {'success': 0, 'error': 0},
     'STATS': {'success': 0, 'error': 0},
     'COM': {'success': 0, 'error': 0},
-    'ABORT': {'success': 0, 'error': 0}
+    'ABORT': {'success': 0, 'error': 0},
     'KEYS': {'success': 0, 'error': 0}
 }
 
