@@ -11,10 +11,9 @@ responses = [[] for i in range (len(DATA) ) ]
 PROCESSING = []
 
 
-
+# Will be run every time the cordinator server comes up
 def sync():
 	sync_ed = all_synced()
-	print "Not Cync"
 	if type(sync_ed) is not bool:
 		master_keys = sync_ed[1][1].split('-')
 		responses = sync_ed[1][0]
@@ -25,25 +24,28 @@ def sync():
 
 		for server in out_of_sync:
 			server_keys = server[0]['message'].split('-')  
-			print server_keys
-			print master_keys
 			missing_key = list (set(master_keys)  - set(server_keys) )
 			if missing_key:
 				for key in missing_key:
 					kv = MasterStore().get(key)
-					print server['server']
+					print server[0]['server']
 					if type(kv) is not bool:
-						print server['server']
+						print server[0]['server']
 						response = []
 						seq = SEQ.next()
-						if client(server['server'] , "{};put;{};{}".format(seq,kv[0],kv[1]) , response ,seq):
-							if client(server['server'] , "{};com;;".format(seq), response, seq):
+						if client(server[0]['server'] , "{};put;{};{}".format(seq,kv[0],kv[1]) , response ,seq):
+							if client(server[0]['server'] , "{};com;;".format(seq), response, seq):
 								pass
 
-			# extra_keys = list (set(server_keys)  - set(missing_key) )
-			# if extra_keys:
-			# 	logger,info("Replica {} has extra keys".format(server['server']))
-			# 	#Will have to delete extra keys from the replica
+			extra_keys = list (set(server_keys)  - set(missing_key) )
+			if extra_keys:
+				for key in extra_keys:
+					seq = SEQ.next()
+					response = []
+					if client(server[0]['server'] , "{};del;{};".format(seq,key) , response):
+						if client(server[0]['server'] , "{};com;;".format(seq) , response):
+							pass
+				#Will have to delete extra keys from the replica
 			
 			keys = []
 			dup_keys = []
@@ -62,15 +64,13 @@ def sync():
 				print "I have dups"
 				for key in dup_keys:
 					seq = SEQ.next()
-					if client(server['server'] , "{};del;{};".format(seq,kv[0]) , response):
-						if client(server['server'] , "{};com;;".format(seq) , response):
+					response = []
+					if client(server[0]['server'] , "{};del;{};".format(seq,key) , response):
+						if client(server[0]['server'] , "{};com;;".format(seq) , response):
 							pass
+		print "We are all synced Now"
 
-
-
-
-	else:
-		print "Synced"
+	return True
 
 
 
@@ -89,6 +89,10 @@ def put(key,value):
 		else:
 			ms.roll_back(seq)
 		PROCESSING.remove(key)
+	return True
+
+def get(key):
+	print replicas_get(key)
 
 def cdel(key):
 	if key in PROCESSING:
@@ -103,6 +107,10 @@ def cdel(key):
 		if resp:
 			ms.commit(seq)
 		PROCESSING.remove(key)
+	return True
+
+
+
 
 # for i in range(len(DATA)):
 #         t = Thread(target=put,args=( DATA[i][0],DATA[i][1] )) 
@@ -116,6 +124,7 @@ def cdel(key):
 # for t in threads:
 #         t.join()
 
-sync()
+#sync()
+get(214)
 
 
