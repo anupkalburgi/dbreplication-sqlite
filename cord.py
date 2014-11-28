@@ -85,7 +85,7 @@ def all_same(items, master):
     for item in items:
         if len(item[0]['message'])== len(master) ==0:
             return True
-        if len(item[0]['message'])  == len(master) :
+        if len(item[0]['message'].split('-'))   == len(master) :
             if not set(item[0]['message'].split('-')) == set(master.split('-') ):
                 return False
     else:

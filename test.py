@@ -16,18 +16,23 @@ def sync():
 	if type(sync_ed) is not bool:
 		print "Not Sycn", sync_ed
 
-		for replica in replics:
-			for key in master:
-				if key not in replica:
-					put
+		master_keys = sync_ed[1]
+		responses = sync_ed[0]
 
-			for key in replica:
-				if key not in master:
-					del key from relica
+		out_of_sync = filter(lambda item : len( item[0]['message'].split('-')) == len(master_keys) , responses )
 
-			for resp in sync_ed[0]:
-				if len(resp[0]['message']) != len(keys):
-					print "Will have to sync up", resp
+		# for replica in replics:
+		# 	for key in master:
+		# 		if key not in replica:
+		# 			put
+
+		# 	for key in replica:
+		# 		if key not in master:
+		# 			del key from relica
+
+		# 	for resp in sync_ed[0]:
+		# 		if len(resp[0]['message']) != len(keys):
+		# 			print "Will have to sync up", resp
 	else:
 		print "Synced"
 
@@ -63,18 +68,18 @@ def cdel(key):
 			ms.commit(seq)
 		PROCESSING.remove(key)
 
-for i in range(len(DATA)):
-        t = Thread(target=put,args=( DATA[i][0],DATA[i][1] )) 
-        t2 = Thread(target=put,args=( DATA[i][0],DATA[i][1] )) 
-        threads.append(t)
-        threads.append(t2)
-        t.start()
-        t2.start()
+# for i in range(len(DATA)):
+#         t = Thread(target=put,args=( DATA[i][0],DATA[i][1] )) 
+#         t2 = Thread(target=put,args=( DATA[i][0],DATA[i][1] )) 
+#         threads.append(t)
+#         threads.append(t2)
+#         t.start()
+#         t2.start()
 
-results = []
-for t in threads:
-        t.join()
+# results = []
+# for t in threads:
+#         t.join()
 
-# sync()
+sync()
 
 

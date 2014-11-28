@@ -40,8 +40,24 @@ Commands possible in a replica:
 	seq;cmd;key;value -- There always have to be 4 no matter what 
 
 	Example Usage:
-		get --    ;get;<key>
+		get --    ;get;key
 		put -- seq;get;key;value
 		del -- seq;del;key;
 	 commit -- seq;com;;
 	 abort  -- seq;abrt;;
+
+
+
+Fault revocry:
+--------------
+	There could be many possible solutions to this:
+		I have decided to stick with, every one has to fillow the master. That is, if someone in the whole systems fails and recovers, will be brought to the same state as that of the master. Translating to, after the server process has come up and it is not in the same state as that of master, it will be made to look like master. 
+
+		Possible disadvantage:
+			If the database is too large, and replica is not in same state as that of master, it can be a time consuming to make the replica same as master. To over come this we could use checkpoints and start revovery from failed check points. But then implemeting checkpoints can be tricky. 
+
+			In the present solution, i am continuing to use the 1st approach. 
+
+
+
+
