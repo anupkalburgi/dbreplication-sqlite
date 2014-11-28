@@ -132,3 +132,7 @@ def handle_abort(seq):
 def handle_stats():
     """Return a tuple containing True and the contents of the STATS dict."""
     return (True, str(STATS))
+
+def handle_keys():
+    ds = DataStore()
+    return (True,ds.mykeys())

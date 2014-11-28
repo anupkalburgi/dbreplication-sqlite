@@ -1,16 +1,16 @@
 import sqlite3
 import fcntl
 import threading
-ROLL_BACK_LOG =  "roll_back.log"
+ROLL_BACK_LOG =  "master_rollback.log"
 
 import logging
-logger = logging.getLogger('data_store')
-hdlr = logging.FileHandler('data_store.log')
+logger = logging.getLogger('master_store')
+hdlr = logging.FileHandler('master_store.log')
 formatter = logging.Formatter('%(asctime)s %(levelname)s %(message)s')
 hdlr.setFormatter(formatter)
 logger.addHandler(hdlr) 
 logger.setLevel(logging.INFO)
-
+DB = "master.db"
 
 def checkTableExists(dbcon, tablename):
 	dbcur = dbcon.cursor()
@@ -24,7 +24,7 @@ def checkTableExists(dbcon, tablename):
 	dbcur.close()
 	return False
 
-class DataStore(object):
+class MasterStore(object):
 	def __init__(self, key=None, value=None):
 		self.key = key 
 		self.value = value
@@ -42,7 +42,7 @@ class DataStore(object):
 		return True
 
 	def get_connection(self):
-		con = sqlite3.connect('test.db')
+		con = sqlite3.connect(DB)
 		if not checkTableExists(con,'keyvalue'):
 			self.create_table(con)
 		return con
@@ -195,12 +195,6 @@ class DataStore(object):
 		else:
 			print "wtf"
 			return False
-
-	def mykeys(self):
-		sql = "SELECT key from keyvalue"
-		with self.get_connection() as con:
-			results = list(self.execute(con,sql))
-		return results
 
 
 # d = DataStore(220,"Another attempt to check get without parameter")

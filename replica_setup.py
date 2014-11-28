@@ -10,7 +10,8 @@ COMMAND_HANDLERS = {
     'STATS': handle_stats,
     'DEL': handle_delete,
     'COM' : handle_commit,
-    'ABORT' : handle_abort
+    'ABORT' : handle_abort,
+    'KEYS': handle_keys
     }
 
 
@@ -34,6 +35,8 @@ def porcess_request(data):
         response = COMMAND_HANDLERS[command](seq,key, value)
     elif command in ('COM','ABORT'):
         response = COMMAND_HANDLERS[command](seq)
+    elif command == 'KEYS':
+        response = COMMAND_HANDLERS[command]()
     else:
         response = (False, 'Unknown command type [{}]'.format(command))
     update_stats(command, response[0])

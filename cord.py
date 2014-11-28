@@ -76,7 +76,31 @@ def replicas_get(key):
     response = []
     print server  
     resp = client(server, ";get;{};".format(key),response)
-    print response
+    return response
+
+
+def all_same(self,items):
+    return all(x == items[0] for x in items)
+
+
+def checksync(self):
+    threads = []
+    responses = [[] for i in range (len(REPLICA) ) ]
+
+    for i in range(len(REPLICA)):
+            t = Thread(target=client,
+                    args=(REPLICA[i], ";keys;;".format(seq,key), responses[i] , seq)  )
+            threads.append(t)
+            t.start()
+
+    for t in threads:
+            t.join()
+
+    if all_same(responses):
+        return True
+    else:
+        return False
+
 
 
 def replicas_del(key):

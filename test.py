@@ -2,12 +2,13 @@ from cord import replicas_put,replicas_get,replicas_del, SEQ
 from masterstore import MasterStore
 from threading import Thread
 
-DATA = [(130,"Testing replication"),(135,"Concurrent"),(145,"Not fault tollerent"),(128,"and my attept")]
+DATA = [(1300,"Testing replication"),(1350,"Concurrent"),(1450,"Not fault tollerent"),(1280,"and my attept")]
 
 threads = []
 responses = [[] for i in range (len(DATA) ) ]
 
 PROCESSING = []
+
 
 
 def put(key,value):
@@ -23,11 +24,6 @@ def put(key,value):
 			ms.put(seq)
 			ms.commit(seq)
 		PROCESSING.remove(key)
-
-
-
-
-
 
 for i in range(len(DATA)):
         t = Thread(target=put,args=( DATA[i][0],DATA[i][1] )) 
