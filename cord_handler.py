@@ -115,22 +115,7 @@ def cdel(key):
 	return True,key
 
 
-# DATA = [(913,"Testing replication"),(112,"Concurrent"),(214,"Not fault tollerent"),(219,"and my attept")]
 
-# threads = []
-# responses = [[] for i in range (len(DATA) ) ]
-
-# for i in range(len(DATA)):
-#         t = Thread(target=put,args=( DATA[i][0],DATA[i][1] )) 
-#         t2 = Thread(target=put,args=( DATA[i][0],DATA[i][1] )) 
-#         threads.append(t)
-#         threads.append(t2)
-#         t.start()
-#         t2.start()
-
-# results = []
-# for t in threads:
-#         t.join()
 
 #print sync()
 # print cdel(214)

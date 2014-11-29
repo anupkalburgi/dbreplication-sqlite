@@ -7,8 +7,7 @@ from cord_processor import porcess_request
 
 
 def create_logs():
-    open("roll_back.log", 'a').close()
-    open("data_store.log", 'a').close()
+    open("cord_log.log", 'a').close()
     
 
 class ThreadedTCPRequestHandler(SocketServer.BaseRequestHandler):
