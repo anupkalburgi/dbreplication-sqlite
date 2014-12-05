@@ -1,5 +1,5 @@
 import socket
-REPLICA = ['192.168.1.21','129.174.55.248']
+REPLICA = ['129.174.55.248']
 port = 50504
 
 import logging

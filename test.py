@@ -1,7 +1,7 @@
 from threading import Thread
 import socket
 
-IP = "192.168.1.9"
+IP = "10.159.22.182"
 port = 50504
 def client(message, response, seq=None):
     try:

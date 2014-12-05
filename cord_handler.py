@@ -73,12 +73,13 @@ def sync():
 
 
 def check_status():
-	
 	for replica in REPLICA:
 		response = []
 		client(replica , ";STATS;;", response)
+		print response
 		if response[0]['status'] == 'False' :
-			return False, replica
+			return False
+
 	else:
 		return True
 
@@ -87,17 +88,15 @@ def put(key,value):
 	if key in PROCESSING:
 		print "Cannot do this operation"
 		return False,"Put Operation failed"
+	if not check_status():
+		return False,"Cannot complete this operations"
 	else:
 		PROCESSING.append(key)
 		seq = SEQ.next()
-		ms = MasterStore(key,value)
-		ms.put(seq)
 		resp = replicas_put(key,value)
-		if resp:
-			ms.commit(seq)
-		else:
-			ms.roll_back(seq)
 		PROCESSING.remove(key)
+		if not resp:
+			return False,"Operation could not be completed"
 	return True,key
 
 def get(key):
@@ -107,6 +106,8 @@ def cdel(key):
 	if key in PROCESSING:
 		print "Cannot do this operation"
 		return False,key
+	if not check_status():
+		return False,"Cannot complete this operations"
 	else:
 		PROCESSING.append(key)
 		seq = SEQ.next()

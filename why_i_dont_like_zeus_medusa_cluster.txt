@@ -18,3 +18,11 @@ Python 2.6.6 (r266:84292, Jan 22 2014, 09:42:36)
 Type "help", "copyright", "credits" or "license" for more information.
 >>> import sqlite3
 >>> 
+
+
+I with out doing the sys.path manipulations on every run i can even fix this. I believe module add on the cluster is broken. 
+
+And also, home directory are on remote file server, and is shared between all the cluster machines. 
+So I have to use different dir structure for each replica to test. As i want individual replicas to be updated.
+
+So different replica different directory structure and on that i have threads to worry about!!!...  

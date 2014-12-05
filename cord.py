@@ -49,6 +49,10 @@ def replicas_put(key, value):
 
         for t in commit_threads:
             t.join()
+
+        ms = MasterStore(key,value)
+        ms.put(seq)
+        ms.commit(seq)
         logger.error("Data Commted to all the replicas")
         return True
 
@@ -153,7 +157,7 @@ def replicas_del(key):
 
         for t in commit_threads:
             t.join()
-        logger.error("Data Commted to all the replicas")
+        logger.error("Data Committed to all the replicas")
         return True
 
     else:
