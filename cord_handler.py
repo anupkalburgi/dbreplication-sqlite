@@ -111,17 +111,12 @@ def cdel(key):
 	else:
 		PROCESSING.append(key)
 		seq = SEQ.next()
-		ms = MasterStore(key)
-		if ms.delete(seq,key):
-			resp = replicas_del(key)
-			if resp:
-				ms.commit(seq)
-				PROCESSING.remove(key)
-				return True,key
-			else:
-				ms.roll_back(seq)
+		resp = replicas_del(key)
 		PROCESSING.remove(key)
-	return False,"Delete Operation Failed"
+		if resp:
+			return True,key
+		
+		return False,"Delete Operation Failed"
 
 
 

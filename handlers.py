@@ -64,7 +64,7 @@ def handle_delete(seq,key):
             POROCESSING.remove(key)
             return (True,'Done')
         else:
-            ds.roll_back(seq,key) 
+            ds.roll_back(seq) 
             POROCESSING.remove(key)
     return (False,'ERROR: Key [{}] not found and could not be deleted'.format(key))
 

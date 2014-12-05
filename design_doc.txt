@@ -4,7 +4,6 @@ Scraped the previous 2 implementation and put in rename to work. So Evey time a 
 If the process fails while write in progress, the original file is still in tact. 
 
 (I ran this setup so many times, I can with confidence say that even sqlite3 library does this to ensure atomicity)
-
 Rename is atomic which is assured by POSIX.
 
 2nd:
@@ -20,15 +19,14 @@ Consistency:
 ------------
 1. If any key is being operated on, and a request to to put/del arrives on the same key. The thread is terminated. This mechanism is employed at master and replica. 
 
-	And this achieved by maintaining a list, before starting the process a request on a key it is append to the processing key and removed at the end. 
-
+	And this achieved by maintaining a list, before starting the process, key is appended to the processing list and removed at the end. 
 	Write Safety(Thread safety) of list are guaranteed by GIL(global interpreter lock). (that is list operations are thread safe)
 2. Evey file write is done with a lock, that should also add some confidence of consistency of the log file. 
 
 
 Isolation:
 ----------
-Isolation is guaranteed by fcntl.flock combined with the truncate operation after the read. 
+Isolation is guaranteed by fcntl.flock combined with Atomicwrites hopefully we should not be reading wrong values. 
 fcntl.flock should work fine on Linux as kernel treats thread and process the same way.
 
 Concurrency:
@@ -38,12 +36,12 @@ I am using a threaded server, on arrival of new request, a new thread is created
 Durability:
 -----------
 I trust computers :P 
-I did some research, flush operation would guarantee  write to secondary storage. But most of the system libraries do it on call to close. I had to take care about writing to the log file. And data by itself is taken care by sqllite. 
+I did some reading, flush operation would guarantee  write to secondary storage. But most of the system libraries do it on call to close. I had to take care about writing to the log file. And data by itself is taken care by sqllite. 
 
 Fault recovery:
 --------------
 	There could be many possible solutions to this:
-		I have decided to stick with, every one has to follows the master. That is, if someone in the whole systems fails and recovers, will be brought to the same state as that of the master. Translating to, after the server process has come up and it is not in the same state as that of master, it will be made to look like master. 
+		I have decided to stick with, every one has to follows the master. That is, if someone in the whole systems fails and recovers, will be brought to the same state as that of the master. Translating to, after the replica process has come up and it is not in the same state as that of master, it will be made to look like master. 
 
 		Possible disadvantage:
 			If the database is too large, and replica is not in same state as that of master, it can be a time consuming to make the replica same as master. To over come this we could use checkpoints and start recovery from failed check points. But then implementing checkpoints can be tricky. 

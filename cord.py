@@ -157,6 +157,10 @@ def replicas_del(key):
 
         for t in commit_threads:
             t.join()
+
+        ms = MasterStore(key)
+        ms.delete(seq,key)
+        ms.commit(seq)
         logger.error("Data Committed to all the replicas")
         return True
 

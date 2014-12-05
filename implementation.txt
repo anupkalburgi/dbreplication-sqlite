@@ -34,7 +34,7 @@
 4. what interesting test cases did you explore, and why did you pick those? 
 	Started multiple threads, putting, getting and deleting the same value. And surprisingly the only put operations get across, del gets key not found and so get operations.
 
-	All the threads are started approximately at the same instance of time and the responses are collected  in respective arrays. 
+	All the threads are started approximately at the same instance of time and the responses are collected  in respective arrays. (Sample out put should look like this)
 
 	[[{'status': 'True', 'message': '913', 'seq': None, 'server': '192.168.1.9'}], [{'status': 'True', 'message': '112', 'seq': None, 'server': '192.168.1.9'}], [{'status': 'True', 'message': '214', 'seq': None, 'server': '192.168.1.9'}], [{'status': 'True', 'message': '219', 'seq': None, 'server': '192.168.1.9'}]]
 	[[{'status': 'True', 'message': "[{'status': 'False', 'message': 'Cound not connect to server', 'seq': None, 'server': '129.174.55.248'}]", 'seq': None, 'server': '192.168.1.9'}], [{'status': 'True', 'message': "[{'status': 'False', 'message': 'Cound not connect to server', 'seq': None, 'server': '129.174.55.248'}]", 'seq': None, 'server': '192.168.1.9'}], [{'status': 'True', 'message': "[{'status': 'False', 'message': 'Cound not connect to server', 'seq': None, 'server': '129.174.55.248'}]", 'seq': None, 'server': '192.168.1.9'}], [{'status': 'True', 'message': "[{'status': 'False', 'message': 'ERROR: Key [219] not found', 'seq': None, 'server': '192.168.1.21'}]", 'seq': None, 'server': '192.168.1.9'}]]
