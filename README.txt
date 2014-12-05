@@ -36,6 +36,8 @@ data_sotre.log
 
 Design and Implementations details: design_doc.txt and implementation.txt 
 -----------------------------------
+design decisions  - ACID properties and way of choices to implement them. 
+and implementation details - API class, structure and arguments
 
 
 
