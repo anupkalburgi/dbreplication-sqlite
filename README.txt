@@ -34,6 +34,8 @@ master_store.log
 data_sotre.log
 
 
+All the questions and the design choices are explained in the following documents.
+
 Design and Implementations details: design_doc.txt and implementation.txt 
 -----------------------------------
 design decisions  - ACID properties and way of choices to implement them. 

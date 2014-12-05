@@ -32,7 +32,9 @@
 	Every response for a request has a status field within in. If the status field is False. That indicates the operation did not complete successfully. And the reason is started in the message. 
 
 4. what interesting test cases did you explore, and why did you pick those? 
-	Started multiple threads, putting, getting and deleting the same value. And surprisingly the only put operations get across, del gets key not found and so get operations.
+	Started multiple threads, putting, getting and deleting the same value. And only put operations get across, del gets key not found and so get operations. but not always. 
+
+	All the roll back back and commit were tested in a controlled manner from the step wise interpretor. Multi threaded environment just adds more complexity to testing. I have tested possible test situations like taking down the replica process during the query, even after the cord_srver coming up and before cord_server being started. All of them seemed to work.
 
 	All the threads are started approximately at the same instance of time and the responses are collected  in respective arrays. (Sample out put should look like this)
 
@@ -45,3 +47,9 @@
 Every operations returns a tuple. with a truth value. 
 
  how do you detect failures? if failures do occur, how are those reflected to clients via the RPC interface that the master exposes, if at all? 
+
+ Detecting failures, When the coordinator server comes is started it checks if all the replica servers are up or no. If any of the replica servers are down, the coordinator does not come up and will print out on the stdout saying the same. 
+
+ And also before any state change operations, before starting the operation server status is checked for. If any of the replica processes have gone down, the operation is terminated immediately. 
+
+

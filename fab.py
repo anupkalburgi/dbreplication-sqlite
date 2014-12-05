@@ -3,7 +3,7 @@ from fabric.api import *
 from fabric.contrib.console import confirm
 
 env.user = 'anupk'
-env.password = ''
+env.password = 'Anup1107'
 env.always_use_pty = False
 code_dir = '/home/anupk/dbreplication-sqlit'
 
@@ -13,7 +13,7 @@ def replicas():
     #              'medusa-node4.vsnet.gmu.edu',\
     #              'medusa-node5.vsnet.gmu.edu']
 
-    env.hosts = REPLICA = ['192.168.1.21','129.174.55.248']
+    env.hosts = REPLICA = ['129.174.55.248']
 
 # def bootstrap():
 #     env.hosts = ['medusa-node1.vsnet.gmu.edu']
