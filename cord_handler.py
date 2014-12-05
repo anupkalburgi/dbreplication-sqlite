@@ -6,13 +6,17 @@ from cord_connect import client ,REPLICA
 PROCESSING = []
 
 
-# Will be run every time the cordinator server comes up
+# Will be run this every time the coordinator server comes up
 def sync():
 	sync_ed = all_synced()
 	if type(sync_ed) is not bool:
 		master_keys = sync_ed[1][1].split('-')
 		responses = sync_ed[1][0]
 
+		for response in responses:
+			if response[0]['status'] == 'False':
+				print "Could not connect to one of the servers Please check"
+				return False
 
 		out_of_sync = filter(lambda item : not set( item[0]['message'].split('-'))  == set(master_keys) \
 			or not len( item[0]['message'].split('-'))  == len(master_keys) , responses )
@@ -20,8 +24,6 @@ def sync():
 		for server in out_of_sync:
 			server_keys = server[0]['message'].split('-')  
 			missing_key = list (set(master_keys)  - set(server_keys) )
-			print missing_key
-			print server_keys
 			if missing_key:
 				for key in missing_key:
 					kv = MasterStore().get(key)

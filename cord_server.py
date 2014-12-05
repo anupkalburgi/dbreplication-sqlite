@@ -36,11 +36,12 @@ if __name__ == "__main__":
     # Exit the server thread when the main thread terminates
     create_logs()
     if sync() and check_status():
-        print "All the replicas are up and synced up"
+        print "All the replicas are up and synced"
+        print "Server loop running in thread:", server_thread.name , ip , port
+        server.serve_forever()
+        server_thread.daemon = True
+        server_thread.start()
+        server.shutdown()
     else:
         print "We have got a problem" 
-    print "Server loop running in thread:", server_thread.name , ip , port
-    server.serve_forever()
-    server_thread.daemon = True
-    server_thread.start()
-    server.shutdown()
+    

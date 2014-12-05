@@ -1,0 +1,51 @@
+Atomic Writes to roll_back log:
+-------------------------------
+Scraped the previous 2 implementation and put in rename to work. So Evey time a file needs to be written a temp file is created, contents are written to it  and renamed to the original. 
+If the process fails while write in progress, the original file is still in tact. 
+
+(I ran this setup so many times, I can with confidence say that even sqlite3 library does this to ensure atomicity)
+
+Rename is atomic which is assured by POSIX.
+
+2nd:
+When ever the log file is updated, the whole content is read the files is truncated.
+And only the once that are to be written back will be written back with a lock. 
+Worst case  the thread terminates or sees the old data. Will not see wrong values. 
+
+1st:
+Earlier i had implemented, where every write has a associated checksum with it. While reading if i don't 
+find the right checksum for that record, that is inconsistent. Then later i took this off as for me read is more important to roll back.
+
+Consistency:
+------------
+1. If any key is being operated on, and a request to to put/del arrives on the same key. The thread is terminated. This mechanism is employed at master and replica. 
+
+	And this achieved by maintaining a list, before starting the process a request on a key it is append to the processing key and removed at the end. 
+
+	Write Safety(Thread safety) of list are guaranteed by GIL(global interpreter lock). (that is list operations are thread safe)
+2. Evey file write is done with a lock, that should also add some confidence of consistency of the log file. 
+
+
+Isolation:
+----------
+Isolation is guaranteed by fcntl.flock combined with the truncate operation after the read. 
+fcntl.flock should work fine on Linux as kernel treats thread and process the same way.
+
+Concurrency:
+------------
+I am using a threaded server, on arrival of new request, a new thread is created and dispatched for processing of the request. Hence there is no blocking for the new incoming process.
+
+Durability:
+-----------
+I trust computers :P 
+I did some research, flush operation would guarantee  write to secondary storage. But most of the system libraries do it on call to close. I had to take care about writing to the log file. And data by itself is taken care by sqllite. 
+
+Fault recovery:
+--------------
+	There could be many possible solutions to this:
+		I have decided to stick with, every one has to follows the master. That is, if someone in the whole systems fails and recovers, will be brought to the same state as that of the master. Translating to, after the server process has come up and it is not in the same state as that of master, it will be made to look like master. 
+
+		Possible disadvantage:
+			If the database is too large, and replica is not in same state as that of master, it can be a time consuming to make the replica same as master. To over come this we could use checkpoints and start recovery from failed check points. But then implementing checkpoints can be tricky. 
+
+			In the present solution, i am continuing to use the 1st approach. 

@@ -26,6 +26,12 @@ def replicas_put(key, value):
     for t in threads:
             t.join()
 
+    for response in responses:
+            if response[0]['status'] == 'False':
+                print "Could not connect to one of the servers Please check"
+                print response[0]['server']
+                #return False
+
     if all(message[0]['status'] == 'True'  for message in responses):
         print "All worked fine"
         commit_reponses = [[] for i in range(len(responses)) ]
@@ -55,7 +61,7 @@ def replicas_put(key, value):
         if succeded_threads:
             logger.error("Aborting the succeded_threads threads {}".format(succeded_threads))
             for i in range(len(succeded_threads)):
-                print succeded_threads[i][0]['server']
+                print "succeded_threads", succeded_threads[i][0]['server']
                 abort_reponses = [[] for i in range(len(succeded_threads)) ]
                 abort_threads = []
                 t = Thread(target=client,

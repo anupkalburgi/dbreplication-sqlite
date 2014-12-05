@@ -1,0 +1,47 @@
+1.describe the structure of your code, including any major interfaces that you implemented 
+	Master/Replicas Support following operations:
+	--------------------------------------
+
+	Replica general format - 
+		seq;cmd;key;value -- There always have to be 4 no matter what 
+
+		Example Usage:
+			get --    ;get;key
+			put -- seq;get;key;value
+			del -- seq;del;key;
+		 commit -- seq;com;;
+		 abort  -- seq;abrt;;
+	Master:
+		get;key
+		put;key;value
+		del;key
+
+
+
+
+2. Describe and justify the RPC interface your replicas expose to the master. 
+	Master can do 5 operations on a Replica, t
+	1. To put values on to DB 
+	2. to get values 
+	3. Delete from database
+	4. commit To communicate if can make the state changes permanent 
+	5. Abort: If all of them did not agree to a state, master can ask the replica to roll back to the previous state. 
+
+
+3.  how do you detect failures? if failures do occur, how are those reflected to clients via the RPC 	interface that the master exposes, if at all? 
+	Every response for a request has a status field within in. If the status field is False. That indicates the operation did not complete successfully. And the reason is started in the message. 
+
+4. what interesting test cases did you explore, and why did you pick those? 
+	Started multiple threads, putting, getting and deleting the same value. And surprisingly the only put operations get across, del gets key not found and so get operations.
+
+	All the threads are started approximately at the same instance of time and the responses are collected  in respective arrays. 
+
+	[[{'status': 'True', 'message': '913', 'seq': None, 'server': '192.168.1.9'}], [{'status': 'True', 'message': '112', 'seq': None, 'server': '192.168.1.9'}], [{'status': 'True', 'message': '214', 'seq': None, 'server': '192.168.1.9'}], [{'status': 'True', 'message': '219', 'seq': None, 'server': '192.168.1.9'}]]
+	[[{'status': 'True', 'message': "[{'status': 'False', 'message': 'Cound not connect to server', 'seq': None, 'server': '129.174.55.248'}]", 'seq': None, 'server': '192.168.1.9'}], [{'status': 'True', 'message': "[{'status': 'False', 'message': 'Cound not connect to server', 'seq': None, 'server': '129.174.55.248'}]", 'seq': None, 'server': '192.168.1.9'}], [{'status': 'True', 'message': "[{'status': 'False', 'message': 'Cound not connect to server', 'seq': None, 'server': '129.174.55.248'}]", 'seq': None, 'server': '192.168.1.9'}], [{'status': 'True', 'message': "[{'status': 'False', 'message': 'ERROR: Key [219] not found', 'seq': None, 'server': '192.168.1.21'}]", 'seq': None, 'server': '192.168.1.9'}]]
+	[[{'status': 'False', 'message': '913', 'seq': None, 'server': '192.168.1.9'}], [{'status': 'False', 'message': '112', 'seq': None, 'server': '192.168.1.9'}], [{'status': 'False', 'message': '214', 'seq': None, 'server': '192.168.1.9'}], [{'status': 'False', 'message': '219', 'seq': None, 'server': '192.168.1.9'}]] 
+
+
+
+Every operations returns a tuple. with a truth value. 
+
+ how do you detect failures? if failures do occur, how are those reflected to clients via the RPC interface that the master exposes, if at all? 

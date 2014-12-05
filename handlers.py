@@ -63,7 +63,6 @@ def handle_delete(seq,key):
         if ds.delete(seq,key):   
             POROCESSING.remove(key)
             return (True,'Done')
-            PROCESSING.remove(key)
         else:
             ds.roll_back(seq,key) 
             POROCESSING.remove(key)
