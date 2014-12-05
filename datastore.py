@@ -87,7 +87,7 @@ class DataStore(object):
 			Get operation should not work if key being still been operated on
 		'''
 		if not self.commited(key):
-			return 'Error: Not availabe for read'
+			return False
 
 		sql =  "SELECT key, value FROM keyvalue WHERE key={}".format(key)
 		print sql

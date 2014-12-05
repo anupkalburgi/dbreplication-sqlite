@@ -104,7 +104,7 @@ def handle_delete(seq,key):
     """Return a tuple containing True if the key could be deleted and
     the message to send back to the client.
 
-    Monty -- use datastore.get and then before doing doing datastore.delete
+    use datastore.get and then before doing doing datastore.delete
     """
     ds = DataStore()
     if ds.get(key):

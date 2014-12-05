@@ -16,6 +16,7 @@ def client(ip, message, response, seq=None):
         sock.connect((ip, port))
         sock.sendall(message)
         resp = sock.recv(1024) 
+        print message
         status , message = resp.split(';')
         from_srv = {'server': ip ,
                     'seq':seq ,

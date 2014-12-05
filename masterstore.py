@@ -89,7 +89,7 @@ class MasterStore(object):
             Get operation should not work if key being still been operated on
         '''
         if not self.commited(key):
-            return 'Error: Not availabe for read'
+            return False
 
         sql =  "SELECT key, value FROM keyvalue WHERE key={}".format(key)
         print sql
@@ -153,6 +153,9 @@ class MasterStore(object):
         May be i shoud also check if have the key before deleting
         '''
         key_value  = self.get(key)
+        print "------Master Store -----"
+        print key_value
+        print "------END Master Store -----"
         if key_value:
             (self.key, self.value) = key_value
             sql = self.get_sql_stmt("DEL")

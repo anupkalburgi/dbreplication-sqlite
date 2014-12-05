@@ -127,8 +127,10 @@ def replicas_del(key):
     for t in threads:
             t.join()
 
+    print responses[0]
     if all(message[0]['status'] == 'True'  for message in responses):
         print "All worked fine"
+        logger.info("All worked fine with {}".format((key)))
         commit_reponses = [[] for i in range(len(responses)) ]
         commit_threads = []
         for i in range(len(responses)):
@@ -149,7 +151,7 @@ def replicas_del(key):
 
     else:
         print "Commit failed"
-        logger.error("Aborting, put operation has failed {}".format((key,value)))
+        logger.error("Aborting, put operation has failed {}".format((key)))
         failed_threads = filter( lambda x : bool( x[0]['status']=='False') , responses )
         succeded_threads = filter( lambda x : bool( x[0]['status']=='True') , responses )
 
