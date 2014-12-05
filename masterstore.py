@@ -55,7 +55,7 @@ class MasterStore(object):
             result = con.execute(stmt)
             logger.info("Successfully executed {} to sqlite3".format(stmt))
         except sqlite3.Error as e:
-            logger.error("Failed to  executed {} to sqlite3, Error:{}".format(stmt,e) )
+            logger.error("Failed to  execute {} to sqlite3, Error:{}".format(stmt,e) )
             return False
         return result
 
@@ -153,9 +153,6 @@ class MasterStore(object):
         May be i shoud also check if have the key before deleting
         '''
         key_value  = self.get(key)
-        print "------Master Store -----"
-        print key_value
-        print "------END Master Store -----"
         if key_value:
             (self.key, self.value) = key_value
             sql = self.get_sql_stmt("DEL")

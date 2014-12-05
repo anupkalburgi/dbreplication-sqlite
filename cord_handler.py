@@ -20,6 +20,8 @@ def sync():
 		for server in out_of_sync:
 			server_keys = server[0]['message'].split('-')  
 			missing_key = list (set(master_keys)  - set(server_keys) )
+			print missing_key
+			print server_keys
 			if missing_key:
 				for key in missing_key:
 					kv = MasterStore().get(key)
@@ -82,7 +84,7 @@ def check_status():
 def put(key,value):
 	if key in PROCESSING:
 		print "Cannot do this operation"
-		return "Cannot do this operation"
+		return False,"Put Operation failed"
 	else:
 		PROCESSING.append(key)
 		seq = SEQ.next()
@@ -102,17 +104,21 @@ def get(key):
 def cdel(key):
 	if key in PROCESSING:
 		print "Cannot do this operation"
-		return "Cannot do this operation"
+		return False,key
 	else:
 		PROCESSING.append(key)
 		seq = SEQ.next()
 		ms = MasterStore(key)
-		ms.delete(seq,key)
-		resp = replicas_del(key)
-		if resp:
-			ms.commit(seq)
+		if ms.delete(seq,key):
+			resp = replicas_del(key)
+			if resp:
+				ms.commit(seq)
+				PROCESSING.remove(key)
+				return True,key
+			else:
+				ms.roll_back(seq)
 		PROCESSING.remove(key)
-	return True,key
+	return False,"Delete Operation Failed"
 
 
 

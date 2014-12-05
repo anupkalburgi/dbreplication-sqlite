@@ -123,11 +123,12 @@ def replicas_del(key):
                     args=(REPLICA[i], "{};del;{};".format(seq,key), responses[i] , seq)  )
             threads.append(t)
             t.start()
+
     results = []
     for t in threads:
             t.join()
 
-    print responses[0]
+    print responses
     if all(message[0]['status'] == 'True'  for message in responses):
         print "All worked fine"
         logger.info("All worked fine with {}".format((key)))
