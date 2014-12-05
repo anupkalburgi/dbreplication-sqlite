@@ -2,6 +2,7 @@ import sqlite3
 import fcntl
 import threading
 ROLL_BACK_LOG =  "roll_back.log"
+from atomicwrite import AtomicFile
 
 import logging
 logger = logging.getLogger('data_store')
@@ -116,12 +117,12 @@ class DataStore(object):
 				else:
 					lines_to_append.append(line)
 
-			with open(ROLL_BACK_LOG, 'r+') as f:
+			with AtomicFile(ROLL_BACK_LOG, 'r+') as f:
 					fcntl.flock(f, fcntl.LOCK_EX)
 					f.truncate()
 					fcntl.flock(f, fcntl.LOCK_UN)
 			if lines_to_append:
-				with open(ROLL_BACK_LOG, 'r+') as f: # Here the contents of the file change and hence the locks 
+				with AtomicFile(ROLL_BACK_LOG, 'r+') as f: # Here the contents of the file change and hence the locks 
 					fcntl.flock(f, fcntl.LOCK_EX)
 					for write_line in lines_to_append:
 						f.write(write_line)
@@ -139,7 +140,7 @@ class DataStore(object):
 
 
 	def append_roll_back_log(self,seq , key ,stmt):
-		with open(ROLL_BACK_LOG, 'a') as f:
+		with AtomicFile(ROLL_BACK_LOG, 'a') as f:
 			fcntl.flock(f, fcntl.LOCK_EX)
 			f.write("{}-{}-{}\n".format(seq,key,stmt))
 			fcntl.flock(f, fcntl.LOCK_UN)
